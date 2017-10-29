@@ -44,10 +44,11 @@ $IND = str_repeat('&nbsp;',4);
 // this must be done before the output is started because it may use the
 // session
 $test_location = get_location();
-?><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+?><!doctype html>
 <html>
 <head>
   <meta name="robots" content="noindex,nofollow">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SquirrelMail configtest</title>
 </head>
 <body>
