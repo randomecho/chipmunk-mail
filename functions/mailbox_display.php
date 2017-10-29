@@ -745,24 +745,18 @@ function mail_message_listing_beginning ($imapConnection,
     /* line between header and button area */
         echo '<div style="height:10px; background: '.$color[4].';">&nbsp;</div>';
 
-        echo html_tag( 'tr' ) . "\n"
-        . html_tag( 'td' ,'' , 'left', '', '' )
-         . html_tag( 'table' ,'' , '', $color[9], 'border="0" width="100%" cellpadding="1"  cellspacing="0"' )
-          . '<tr><td>'
-           . html_tag( 'table' ,'' , '', $color[0], 'border="0" width="100%" cellpadding="1"  cellspacing="0"' )
-            . html_tag( 'tr',
-             getSmallStringCell(_("Move Selected To"), 'left', 'nowrap') .
-             getSmallStringCell(_("Transform Selected Messages"), 'right')
+        echo html_tag( 'div' ) . "\n"
+            . html_tag( 'div',
+             getSmallStringCell(_("Move Selected To")) .
+             getSmallStringCell(_("Transform Selected Messages"))
             )
-            . html_tag( 'tr' ) ."\n"
-            . html_tag( 'td', '', 'left', '', 'valign="middle" nowrap' );
+            . html_tag( 'div' ) ."\n";
             getMbxList($imapConnection);
             echo getButton('SUBMIT', 'moveButton',_("Move")) . "\n";
             echo getButton('SUBMIT', 'attache',_("Forward")) . "\n";
             do_hook('mailbox_display_buttons');
 
-    echo "      </small></td>\n"
-         . html_tag( 'td', '', 'right', '', 'nowrap' );
+    echo "      </small>\n";
 
     if (!$auto_expunge) {
         echo getButton('SUBMIT', 'expungeButton',_("Expunge")) ."\n";
@@ -780,8 +774,6 @@ function mail_message_listing_beginning ($imapConnection,
 //    $location = urlencode($location);
 
     echo '<input type="hidden" name="location" value="'.$location.'">';
-    echo "</td>\n"
-         . "   </tr>\n";
 
     /* draws thread sorting links */
     if ($allow_thread_sort == TRUE) {
@@ -802,7 +794,7 @@ function mail_message_listing_beginning ($imapConnection,
                  , '', '', '' );
     }
 
-    echo "</table></td></tr></table></td></tr>\n";
+    echo "\n";
 
     do_hook('mailbox_form_before');
 
@@ -1297,11 +1289,9 @@ function getButton($type, $name, $value) {
 }
 
 function getSmallStringCell($string, $align) {
-    return html_tag('td',
+    return html_tag('div',
                     '<small>' . $string . ':&nbsp; </small>',
-                    $align,
-                    '',
-                    'nowrap' );
+                    $align );
 }
 
 function getEndMessage($start_msg, $show_num, $num_msgs) {
