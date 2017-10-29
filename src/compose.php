@@ -1166,16 +1166,16 @@ function showInputForm ($session, $values=false) {
 
     echo '   <div class="email-fields">' . "\n" .
         '      <div class="compose-input"><label for="send_to">' . _("To:") . '</label>'. "\n" .
-        substr(addInput('send_to', $send_to, 60, '', ' id="send_to"'), 0, -3). $onfocus . ' >' . "\n" .
+        substr(addInput('send_to', $send_to, '', '', ' id="send_to"'), 0, -3). $onfocus . ' >' . "\n" .
         '      </div>' . "\n" .
         '      <div class="compose-input"><label for="send_to_cc">' . _("Cc:") . '</label>'. "\n" .
-        substr(addInput('send_to_cc', $send_to_cc, 60, '', ' id="send_to_cc"' . _("Cc:") . '"'), 0, -3). $onfocus . ' >' . "\n" .
+        substr(addInput('send_to_cc', $send_to_cc, '', '', ' id="send_to_cc"' . _("Cc:") . '"'), 0, -3). $onfocus . ' >' . "\n" .
         '      </div>' . "\n" .
         '      <div class="compose-input"><label for="send_to_bcc">' . _("Bcc:") . '</label>'. "\n" .
-        substr(addInput('send_to_bcc', $send_to_bcc, 60, '', ' id="send_to_bcc"'), 0, -3). $onfocus . ' >' . "\n" .
+        substr(addInput('send_to_bcc', $send_to_bcc, '', '', ' id="send_to_bcc"'), 0, -3). $onfocus . ' >' . "\n" .
         '      </div>' . "\n" .
         '      <div class="compose-input"><label for="subject">' . _("Subject:") . '</label>'. "\n" .
-        substr(addInput('subject', $subject, 60, '', ' id="subject"'), 0, -3). $onfocus . ' >' . "\n" .
+        substr(addInput('subject', $subject, '', '', ' id="subject"'), 0, -3). $onfocus . ' >' . "\n" .
         '      </div>' . "\n" .
         '   </div>' . "\n\n";
 
@@ -1187,12 +1187,12 @@ function showInputForm ($session, $values=false) {
     if ($compose_new_win == '1') {
         echo '   <div>' . "\n" .
             '         <textarea name="body" id="body" rows="' . (int)$editor_height .
-            '" cols="' . (int)$editor_size . '" wrap="virtual"' . $onfocus . '>';
+            '" style="width:100%;" wrap="virtual"' . $onfocus . '>';
     }
     else {
         echo '   <div>' . "\n" .
             '         &nbsp;&nbsp;<textarea name="body" id="body" rows="' . (int)$editor_height .
-            '" cols="' . (int)$editor_size . '" wrap="virtual"' . $onfocus . '>';
+            '" style="width:100%;" wrap="virtual"' . $onfocus . '>';
     }
 
     if ($use_signature == true && $newmail == true && !isset($from_htmladdr_search)) {
