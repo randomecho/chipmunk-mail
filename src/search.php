@@ -339,11 +339,7 @@ elseif ($submit == 'delete' && isset($count)) {
 
 do_hook('search_before_form');
 
-echo html_tag( 'table',
-         html_tag( 'tr', "\n" .
-             html_tag( 'td', '<b>' . _("Search") . '</b>', 'center', $color[0] )
-         ) ,
-     '', '', 'width="100%"') . "\n";
+echo html_tag( 'header', '<h1>' . _("Search") . '</h1>', null, null, 'style="background:' . $color[0] . '"' ) . "\n";
 
 /*  update the recent and saved searches from the pref files  */
 $attributes = get_recent($username, $data_dir);
@@ -474,9 +470,7 @@ if( substr( phpversion(), 0, 3 ) == '4.1'  ) {
 echo html_tag( 'div', '<b>' . _("Current Search") . '</b>', 'left' ) . "\n"
    . '<form action="search.php" name="s">'
    . addHidden('smtoken', sm_generate_security_token())
-   . html_tag( 'table', '', '', '', 'width="95%" cellpadding="0" cellspacing="0" border="0"' )
-   . html_tag( 'tr' )
-   . html_tag( 'td', '', 'left' )
+   . '<div class="search-folder">'
    . '<select name="mailbox">'
    . '<option value="All Folders"';
    if ($mailbox == 'All Folders') {
@@ -488,7 +482,7 @@ echo html_tag( 'div', '<b>' . _("Current Search") . '</b>', 'left' ) . "\n"
    echo sqimap_mailbox_option_list($imapConnection, $show_selected, 0, $boxes);
 
    echo '         </select>'.
-        "       </td>\n";
+        "       </div>\n";
 
 // FIXME: explain all str_replace calls.
 $what_disp = str_replace(',', ' ', $what);
@@ -496,8 +490,8 @@ $what_disp = str_replace('\\\\', '\\', $what_disp);
 $what_disp = str_replace('\\"', '"', $what_disp);
 $what_disp = str_replace('"', '&quot;', $what_disp);
 
-echo html_tag( 'td', '<input type="text" size="35" name="what" value="' . $what_disp . '" />' . "\n", 'center' )
-     . html_tag( 'td', '', 'right' )
+echo html_tag( 'div', "\n" . '<input type="text" size="35" name="what" value="' . $what_disp . '" />' . "\n",
+    null, null, 'class="search-keyword"')
      . "<select name=\"where\">";
 s_opt( 'BODY', $where, _("Body") );
 s_opt( 'TEXT', $where, _("Everywhere") );
@@ -506,12 +500,8 @@ s_opt( 'FROM', $where, _("From") );
 s_opt( 'CC', $where, _("Cc") );
 s_opt( 'TO', $where, _("To") );
 echo "         </select>\n" .
-     "        </td>\n".
-     html_tag( 'td', '<input type="submit" name="submit" value="' . _("Search") . '" />' . "\n", 'center', '', 'colspan="3"' ) .
-     "     </tr>\n".
-     "   </table>\n".
+     html_tag( 'div', '<input type="submit" name="submit" value="' . _("Search") . '" />' . "\n", null, null, 'class="search-field"') .
      "</form>\n";
-
 
 do_hook('search_after_form');
 
@@ -531,9 +521,9 @@ if ($allow_thread_sort == TRUE) {
 if ($search_all == 'all') {
     $mailbox == '';
     $boxcount = count($boxes);
-    echo '<br /><center><b>' .
+    echo '<h2>' .
          _("Search Results") .
-         "</b></center><br />\n";
+         "</h2>\n";
     for ($x=0;$x<$boxcount;$x++) {
         if (!in_array('noselect', $boxes[$x]['flags'])) {
             $mailbox = $boxes[$x]['unformatted'];
@@ -561,8 +551,7 @@ if ($search_all == 'all') {
 /*  search one folder option  */
 else {
     if (($submit == _("Search") || $submit == 'Search_no_update') && !empty($what)) {
-        echo '<br />'
-        . html_tag( 'div', '<b>' . _("Search Results") . '</b>', 'center' ) . "\n";
+        echo html_tag( 'h2', _("Search Results") ) . "\n";
         sqimap_mailbox_select($imapConnection, $mailbox);
         $msgs = sqimap_search($imapConnection, $where, $what, $mailbox, $color, 0, $search_all, $count_all);
         if (count($msgs)) {
