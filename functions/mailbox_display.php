@@ -738,23 +738,12 @@ function mail_message_listing_beginning ($imapConnection,
      */
 
     if (!empty($paginator) && !empty($msg_cnt_str)) {
-
-        echo html_tag( 'table' ,
-            html_tag( 'tr',
-                html_tag( 'td' ,
-                    html_tag( 'table' ,
-                        html_tag( 'tr',
-                            html_tag( 'td', $paginator, 'left' ) .
-                            html_tag( 'td', $msg_cnt_str, 'right' )
-                        )
-                    , '', $color[4], 'border="0" width="100%" cellpadding="1"  cellspacing="0"' )
-                , 'left', '', '' )
-            , '', $color[0] )
-         , '', '', 'border="0" width="100%" cellpadding="1"  cellspacing="0"' );
+        echo html_tag( 'div', $msg_cnt_str, null, null, 'style="background:'.$color[0].';"');
+        echo html_tag( 'div', $paginator );
     }
+
     /* line between header and button area */
-        echo '</td></tr>';
-        echo '<div style="height:10px; background: '.$color[4].'">&nbsp;</div>';
+        echo '<div style="height:10px; background: '.$color[4].';">&nbsp;</div>';
 
         echo html_tag( 'tr' ) . "\n"
         . html_tag( 'td' ,'' , 'left', '', '' )
@@ -832,18 +821,8 @@ function mail_message_listing_end($num_msgs, $paginator_str, $msg_cnt_str, $colo
     /* space between list and footer */
     echo '<div style="height:10px; background: '.$color[4].'">&nbsp;</div>'."\n";
 
-    echo html_tag( 'table',
-            html_tag( 'tr',
-                html_tag( 'td',
-                    html_tag( 'table',
-                        html_tag( 'tr',
-                            html_tag( 'td', $paginator_str ) .
-                            html_tag( 'td', $msg_cnt_str, 'right' )
-                        )
-                    , '', $color[4], 'width="100%" border="0" cellpadding="1" cellspacing="0"' )
-                )
-            )
-        , '', $color[9], 'width="100%" border="0" cellpadding="1"  cellspacing="0"' );
+    echo html_tag( 'div', $msg_cnt_str, null, null, 'style="background:'.$color[0].';"');
+    echo html_tag( 'div', $paginator_str );
   }
     /* End of message-list table */
 
@@ -958,7 +937,7 @@ function get_selectall_link($start_msg, $sort) {
         $safe_name = preg_replace("/[^0-9A-Za-z_]/", '_', $mailbox);
         $func_name = "CheckAll" . $safe_name;
         $form_name = "FormMsgs" . $safe_name;
-        $result = '<script language="JavaScript" type="text/javascript">'
+        $result = "\n".'<script language="JavaScript" type="text/javascript">'
                 . "\n<!-- \n"
                 . "function " . $func_name . "() {\n"
                 . "  for (var i = 0; i < document." . $form_name . ".elements.length; i++) {\n"
