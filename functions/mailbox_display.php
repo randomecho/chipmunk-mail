@@ -533,26 +533,23 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
         '<input type="hidden" name="mailbox" value="'.htmlspecialchars($mailbox).'">' . "\n" .
         '<input type="hidden" name="startMessage" value="'.htmlspecialchars($start_msg).'">' . "\n";
     
-    echo '<table border="0" width="100%" cellpadding="0" cellspacing="0">';
-    echo '<tr><td>';
+    echo '<div>';
 
     mail_message_listing_beginning($imapConnection, $mailbox, $sort,
                                   $msg_cnt_str, $paginator_str, $start_msg);
     /* line between the button area and the list */
-    echo '<tr><td height="5" bgcolor="'.$color[4].'"></td></tr>';
+    echo '<div style="height:10px; background: '.$color[4].'">&nbsp;</div>'."\n";
 
-    echo '<tr><td>';
-    echo '    <table width="100%" cellpadding="1" cellspacing="0" align="center"'.' border="0" bgcolor="'.$color[9].'">';
-    echo '     <tr><td>';
-    echo '       <table width="100%" cellpadding="1" cellspacing="0" align="center" border="0" bgcolor="'.$color[5].'">';
+    echo '<div>';
+    echo '<table width="100%" cellpadding="1" cellspacing="0" align="center" border="0" bgcolor="'.$color[5].'">';
     printHeader($mailbox, $srt, $color, !$thread_sort_messages);
 
     displayMessageArray($imapConnection, $num_msgs, $start_msg,
                         $msort, $mailbox, $sort, $color, $show_num,0,0);
-    echo '</table></td></tr></table>';
+    echo '</table>';
 
     mail_message_listing_end($num_msgs, $paginator_str, $msg_cnt_str, $color);
-    echo '</table>';
+    echo '</div>';
 
     echo "\n</form>\n\n";
     
@@ -756,7 +753,8 @@ function mail_message_listing_beginning ($imapConnection,
          , '', '', 'border="0" width="100%" cellpadding="1"  cellspacing="0"' );
     }
     /* line between header and button area */
-        echo '</td></tr><tr><td height="5" bgcolor="'.$color[4].'"></td></tr>';
+        echo '</td></tr>';
+        echo '<div style="height:10px; background: '.$color[4].'">&nbsp;</div>';
 
         echo html_tag( 'tr' ) . "\n"
         . html_tag( 'td' ,'' , 'left', '', '' )
@@ -832,9 +830,8 @@ function mail_message_listing_beginning ($imapConnection,
 function mail_message_listing_end($num_msgs, $paginator_str, $msg_cnt_str, $color) {
   if ($num_msgs) {
     /* space between list and footer */
-    echo '<tr><td height="5" bgcolor="'.$color[4].'" colspan="1">';
+    echo '<div style="height:10px; background: '.$color[4].'">&nbsp;</div>'."\n";
 
-    echo '</td></tr><tr><td>';
     echo html_tag( 'table',
             html_tag( 'tr',
                 html_tag( 'td',
@@ -847,7 +844,6 @@ function mail_message_listing_end($num_msgs, $paginator_str, $msg_cnt_str, $colo
                 )
             )
         , '', $color[9], 'width="100%" border="0" cellpadding="1"  cellspacing="0"' );
-    echo '</td></tr>';
   }
     /* End of message-list table */
 
