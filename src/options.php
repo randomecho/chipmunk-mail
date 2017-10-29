@@ -95,41 +95,26 @@ function process_optionmode_link($optpage) {
 function print_optionpages_row($leftopt, $rightopt = false) {
     global $color;
 
+    $leftopt_name = html_tag( 'header', '<a href="' . $leftopt['url'] . '">' . $leftopt['name'] . '</a>', null, null, 'style="background:' . $color[9] . ';"' );
+    $leftopt_desc = html_tag( 'p', $leftopt['desc'], null, null, 'style="background:' . $color[0] . ';"' );
+
     if ($rightopt) {
-        $rightopt_name = html_tag( 'td', '<a href="' . $rightopt['url'] . '">' . $rightopt['name'] . '</a>', 'left', $color[9], 'valign="top" width="49%"' );
-        $rightopt_desc = html_tag( 'td', $rightopt['desc'], 'left', $color[0], 'valign="top" width="49%"' );
+        $rightopt_name = html_tag( 'header', '<a href="' . $rightopt['url'] . '">' . $rightopt['name'] . '</a>', null, null, 'style="background:' . $color[9] . ';"' );
+        $rightopt_desc = html_tag( 'p', $rightopt['desc'], null, null, 'style="background:' . $color[0] . ';"' );
     } else {
-        $rightopt_name = html_tag( 'td', '&nbsp;', 'left', $color[4], 'valign="top" width="49%"' );
-        $rightopt_desc = html_tag( 'td', '&nbsp;', 'left', $color[4], 'valign="top" width="49%"' );
+        $rightopt_name = html_tag( 'header', '&nbsp;');
+        $rightopt_desc = html_tag( 'p', '&nbsp;');
     }
 
     echo
-    html_tag( 'table', "\n" .
-        html_tag( 'tr', "\n" .
-            html_tag( 'td', "\n" .
-                html_tag( 'table', "\n" .
-                    html_tag( 'tr', "\n" .
-                        html_tag( 'td',
-                            '<a href="' . $leftopt['url'] . '">' . $leftopt['name'] . '</a>' ,
-                        'left', $color[9], 'valign="top" width="49%"' ) .
-                        html_tag( 'td',
-                            '&nbsp;' ,
-                        'left', $color[4], 'valign="top" width="2%"' ) . "\n" .
-                        $rightopt_name
-                    ) . "\n" .
-                    html_tag( 'tr', "\n" .
-                        html_tag( 'td',
-                            $leftopt['desc'] ,
-                        'left', $color[0], 'valign="top" width="49%"' ) .
-                        html_tag( 'td',
-                            '&nbsp;' ,
-                        'left', $color[4], 'valign="top" width="2%"' ) . "\n" .
-                        $rightopt_desc
-                    ) ,
-                '', '', 'width="100%" cellpadding="2" cellspacing="0" border="0"' ) ,
-            'left', '', 'valign="top"' )
-        ) ,
-    '', $color[4], 'width="100%" cellpadding="0" cellspacing="5" border="0"' );
+    html_tag( 'section', "\n" . $leftopt_name . $leftopt_desc,
+        null, null, 'style="background:' . $color[0] . ';"'
+    );
+
+    echo
+    html_tag( 'section', "\n" . $rightopt_name . $rightopt_desc,
+        null, null, 'style="background:' . $color[0] . ';"'
+    );
 }
 
 /* ---------------------------- main ---------------------------- */
@@ -298,13 +283,7 @@ if ($optmode == SMOPT_MODE_SUBMIT) {
 
 displayPageHeader($color, 'None', (isset($optpage_data['xtra']) ? $optpage_data['xtra'] : ''));
 
-echo html_tag( 'table', '', 'center', $color[0], 'width="95%" cellpadding="1" cellspacing="0" border="0"' ) . "\n" .
-        html_tag( 'tr' ) . "\n" .
-            html_tag( 'td', '', 'center' ) .
-                "<b>$optpage_title</b><br />\n".
-                html_tag( 'table', '', '', '', 'width="100%" cellpadding="5" cellspacing="0" border="0"' ) . "\n" .
-                    html_tag( 'tr' ) . "\n" .
-                        html_tag( 'td', '', 'center', $color[4] ) . "\n";
+echo html_tag( 'header', "<h1>$optpage_title</h1>\n", null, null, 'style="background:' . $color[0] . '"');
 
 /*
  * The main option page has a different layout then the rest of the option
@@ -407,12 +386,7 @@ if ($optpage == SMOPT_PAGE_MAIN) {
     /* Now, print out each option page section. */
     /********************************************/
     $first_optpage = false;
-    echo html_tag( 'table', '', '', $color[4], 'width="100%" cellpadding="0" cellspacing="5" border="0"' ) . "\n" .
-                html_tag( 'tr' ) . "\n" .
-                    html_tag( 'td', '', 'left', '', 'valign="top"' ) .
-                        html_tag( 'table', '', '', $color[4], 'width="100%" cellpadding="3" cellspacing="0" border="0"' ) . "\n" .
-                            html_tag( 'tr' ) . "\n" .
-                                html_tag( 'td', '', 'left' );
+
     foreach ($optpage_blocks as $next_optpage) {
         if ($first_optpage == false) {
             $first_optpage = $next_optpage;
@@ -426,8 +400,6 @@ if ($optpage == SMOPT_PAGE_MAIN) {
         print_optionpages_row($first_optpage);
     }
 
-    echo "</td></tr></table></td></tr></table>\n";
-
     do_hook('options_link_and_description');
 
 
@@ -437,10 +409,9 @@ if ($optpage == SMOPT_PAGE_MAIN) {
 } else {
     echo addForm('options.php', 'POST', 'f', '', '', '', TRUE)
        . create_optpage_element($optpage)
-       . create_optmode_element(SMOPT_MODE_SUBMIT)
-       . html_tag( 'table', '', '', '', 'width="100%" cellpadding="2" cellspacing="0" border="0"' ) . "\n"
-       . html_tag( 'tr' ) . "\n"
-       . html_tag( 'td', '', 'left' ) . "\n";
+       . create_optmode_element(SMOPT_MODE_SUBMIT) . "\n";
+
+    echo '<div>';
 
     /* Output the option groups for this page. */
     print_option_groups($optpage_data['options']);
@@ -485,7 +456,7 @@ if ($optpage == SMOPT_PAGE_MAIN) {
 
     /* Spit out a submit button. */
     OptionSubmit($submit_name);
-    echo '</td></tr></table></form>';
+    echo '</div></form>';
 
     /* If it is not empty, trigger the bottom hook. */
     if ($bottom_hook_name != '') {
@@ -493,8 +464,4 @@ if ($optpage == SMOPT_PAGE_MAIN) {
     }
 }
 ?>
-</td></tr>
-</table>
-</td></tr>
-</table>
 </body></html>
