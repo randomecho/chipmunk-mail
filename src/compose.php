@@ -1134,12 +1134,9 @@ function showInputForm ($session, $values=false) {
         echo '<br /><center><b>'. _("Your mail has been sent.").'</center></b>';
     }
     if ($compose_new_win == '1') {
-        echo '<table align="center" bgcolor="'.$color[0].'" width="100%" border="0">'."\n" .
-            '   <tr><td></td>'.html_tag( 'td', '', 'right' ).
+        echo '<div class="compose-close>'."\n" .
             '<input type="button" name="Close" onclick="return self.close()" value="'.
-            _("Close").'" /></td></tr>'."\n";
-    } else {
-        echo '<table align="center" cellspacing="0" border="0">' . "\n";
+            _("Close").'" /></div>'."\n";
     }
     if ($location_of_buttons == 'top') {
         showComposeButtonRow();
@@ -1147,10 +1144,10 @@ function showInputForm ($session, $values=false) {
     
     /* display select list for identities */
     if (count($idents) > 1) {
-        echo '   <tr>' . "\n" .
-            html_tag( 'td', '', 'right', $color[4], 'width="10%"' ) .
-            _("From:") . '</td>' . "\n" .
-            html_tag( 'td', '', 'left', $color[4], 'width="90%"' ) .
+        echo '   <div>' . "\n" .
+            html_tag( 'div', '', 'right', $color[4], 'width="10%"' ) .
+            _("From:") . '</div>' . "\n" .
+            html_tag( 'div', '', 'left', $color[4], 'width="90%"' ) .
             '         <select name="identity">' . "\n";
 
         foreach($idents as $nr => $data) {
@@ -1164,39 +1161,23 @@ function showInputForm ($session, $values=false) {
                 "</option>\n";
         }
 
-        echo '</select>' . "\n" .
-            '      </td>' . "\n" .
-            '   </tr>' . "\n";
+        echo '</select>' . "\n";
     }
 
-    echo '   <tr>' . "\n" .
-        html_tag( 'td', '', 'right', $color[4], 'width="10%"' ) .
-        _("To:") . '</td>' . "\n" .
-        html_tag( 'td', '', 'left', $color[4], 'width="90%"' ) .
-        substr(addInput('send_to', $send_to, 60), 0, -3). $onfocus . ' /><br />' . "\n" .
-        '      </td>' . "\n" .
-        '   </tr>' . "\n" .
-        '   <tr>' . "\n" .
-        html_tag( 'td', '', 'right', $color[4] ) .
-        _("Cc:") . '</td>' . "\n" .
-        html_tag( 'td', '', 'left', $color[4] ) .
-        substr(addInput('send_to_cc', $send_to_cc, 60), 0, -3). $onfocus . ' /><br />' . "\n" .
-        '      </td>' . "\n" .
-        '   </tr>' . "\n" .
-        '   <tr>' . "\n" .
-        html_tag( 'td', '', 'right', $color[4] ) .
-        _("Bcc:") . '</td>' . "\n" .
-        html_tag( 'td', '', 'left', $color[4] ) .
-        substr(addInput('send_to_bcc', $send_to_bcc, 60), 0, -3). $onfocus . ' /><br />' . "\n" .
-        '      </td>' . "\n" .
-        '   </tr>' . "\n" .
-        '   <tr>' . "\n" .
-        html_tag( 'td', '', 'right', $color[4] ) .
-        _("Subject:") . '</td>' . "\n" .
-        html_tag( 'td', '', 'left', $color[4] ) . "\n";
-    echo '         '.substr(addInput('subject', $subject, 60), 0, -3). $onfocus .
-        ' />      </td>' . "\n" .
-        '   </tr>' . "\n\n";
+    echo '   <div class="email-fields">' . "\n" .
+        '      <div class="compose-input"><label for="send_to">' . _("To:") . '</label>'. "\n" .
+        substr(addInput('send_to', $send_to, 60, '', ' id="send_to"'), 0, -3). $onfocus . ' >' . "\n" .
+        '      </div>' . "\n" .
+        '      <div class="compose-input"><label for="send_to_cc">' . _("Cc:") . '</label>'. "\n" .
+        substr(addInput('send_to_cc', $send_to_cc, 60, '', ' id="send_to_cc"' . _("Cc:") . '"'), 0, -3). $onfocus . ' >' . "\n" .
+        '      </div>' . "\n" .
+        '      <div class="compose-input"><label for="send_to_bcc">' . _("Bcc:") . '</label>'. "\n" .
+        substr(addInput('send_to_bcc', $send_to_bcc, 60, '', ' id="send_to_bcc"'), 0, -3). $onfocus . ' >' . "\n" .
+        '      </div>' . "\n" .
+        '      <div class="compose-input"><label for="subject">' . _("Subject:") . '</label>'. "\n" .
+        substr(addInput('subject', $subject, 60, '', ' id="subject"'), 0, -3). $onfocus . ' >' . "\n" .
+        '      </div>' . "\n" .
+        '   </div>' . "\n\n";
 
     if ($location_of_buttons == 'between') {
         showComposeButtonRow();
@@ -1204,14 +1185,12 @@ function showInputForm ($session, $values=false) {
 
     /* why this distinction? */
     if ($compose_new_win == '1') {
-        echo '   <tr>' . "\n" .
-            '      <td bgcolor="' . $color[0] . '" colspan="2" align="center">' . "\n" .
+        echo '   <div>' . "\n" .
             '         <textarea name="body" id="body" rows="' . (int)$editor_height .
             '" cols="' . (int)$editor_size . '" wrap="virtual"' . $onfocus . '>';
     }
     else {
-        echo '   <tr>' . "\n" .
-            '      <td bgcolor="' . $color[4] . '" colspan="2">' . "\n" .
+        echo '   <div>' . "\n" .
             '         &nbsp;&nbsp;<textarea name="body" id="body" rows="' . (int)$editor_height .
             '" cols="' . (int)$editor_size . '" wrap="virtual"' . $onfocus . '>';
     }
@@ -1238,20 +1217,15 @@ function showInputForm ($session, $values=false) {
     } else {
         echo htmlspecialchars(decodeHeader($body,false,false,true));
     }
-    echo '</textarea><br />' . "\n" .
-        '      </td>' . "\n" .
-        '   </tr>' . "\n";
-
+    echo '</textarea>' . "\n" .
+        '      </div>' . "\n";
 
     if ($location_of_buttons == 'bottom') {
         showComposeButtonRow();
     } else {
-        echo '   <tr>' . "\n" .
-            html_tag( 'td', '', 'right', '', 'colspan="2"' ) . "\n" .
-            '         ' . addSubmit(_("Send"), 'send').
-            '         &nbsp;&nbsp;&nbsp;&nbsp;<br /><br />' . "\n" .
-            '      </td>' . "\n" .
-            '   </tr>' . "\n";
+        echo '   <div class="send">' . "\n" .
+                addSubmit(_("Send"), 'send') .
+            '   </div>' . "\n";
     }
 
     // composeMessage can be empty when coming from a restored session
@@ -1284,25 +1258,13 @@ function showInputForm ($session, $values=false) {
         } else {
             $maxsize_text = $maxsize_input = '';
         }
-        echo '   <tr>' . "\n" .
-            '      <td colspan="2">' . "\n" .
-            '         <table width="100%" cellpadding="1" cellspacing="0" align="center"'.
-            ' border="0" bgcolor="'.$color[9].'">' . "\n" .
-            '            <tr>' . "\n" .
-            '               <td>' . "\n" .
-            '                 <table width="100%" cellpadding="3" cellspacing="0" align="center"'.
-            ' border="0">' . "\n" .
-            '                    <tr>' . "\n" .
-            html_tag( 'td', '', 'right', '', 'valign="middle"' ) .
-            _("Attach:") . '</td>' . "\n" .
-            html_tag( 'td', '', 'left', '', 'valign="middle"' ) .
+        echo '   <div class="attachments" style="background:' .$color[9]. '"><h3>' . "\n" .
+            _("Attach:") . '</h3>' . "\n" .
             $maxsize_input .
-            '                          <input name="attachfile" size="48" type="file" />' . "\n" .
-            '                          &nbsp;&nbsp;<input type="submit" name="attach"' .
+            ' <input name="attachfile" size="48" type="file" />' . "\n" .
+            ' &nbsp;&nbsp;<input type="submit" name="attach"' .
             ' value="' . _("Add") .'" />' . "\n" .
-            $maxsize_text .
-            '                       </td>' . "\n" .
-            '                    </tr>' . "\n";
+            $maxsize_text ;
 
         $s_a = array();
         global $username, $attachment_dir;
@@ -1327,21 +1289,15 @@ function showInputForm ($session, $values=false) {
         }
         if (count($s_a)) {
             foreach ($s_a as $s) {
-                echo '<tr>' . html_tag( 'td', '', 'left', $color[0], 'colspan="2"' ) . $s .'</td></tr>';
+                echo '<tr>' . html_tag( 'td', '', 'left', $color[0], 'colspan="20"' ) . $s .'</td></tr>';
             }
-            echo '<tr><td colspan="2"><input type="submit" name="do_delete" value="' .
+            echo '<tr><td colspan="21"><input type="submit" name="do_delete" value="' .
                 _("Delete selected attachments") . "\" />\n" .
                 '</td></tr>';
         }
-        echo '                  </table>' . "\n" .
-            '               </td>' . "\n" .
-            '            </tr>' . "\n" .
-            '         </table>' . "\n" .
-            '      </td>' . "\n" .
-            '   </tr>' . "\n";
     } // End of file_uploads if-block
     /* End of attachment code */
-    echo '</table>' . "\n" .
+    echo '</div>' . "\n" .
         addHidden('username', $username).
         addHidden('smaction', $action).
         addHidden('mailbox', $mailbox);
@@ -1368,15 +1324,14 @@ function showInputForm ($session, $values=false) {
 }
 
 
-function showComposeButtonRow() {
+function showComposeButtonRow()
+{
     global $use_javascript_addr_book, $save_as_draft,
         $default_use_priority, $mailprio, $default_use_mdn,
         $request_mdn, $request_dr,
         $data_dir, $username;
 
-    echo '   <tr>' . "\n" .
-        '      <td></td>' . "\n" .
-        '      <td>' . "\n";
+    echo '   <div class="compose-buttons">' . "\n" ;
     if ($default_use_priority) {
         if(!isset($mailprio)) {
             $mailprio = '3';
@@ -1391,16 +1346,12 @@ function showComposeButtonRow() {
     if ($default_use_mdn) {
         if ($mdn_user_support) {
             echo '          ' . _("Receipt") .': '.
-                addCheckBox('request_mdn', $request_mdn == '1', '1', 'id="request_mdn"') . '<label for="request_mdn">' . _("On Read") . '</label>' .
-                addCheckBox('request_dr',  $request_dr  == '1', '1', 'id="request_dr"') . '<label for="request_dr">' . _("On Delivery") . '</label>';
+                addCheckBox('request_mdn', $request_mdn == '1', '1', ' id="request_mdn"') . '<label for="request_mdn">' . _("On Read") . '</label>' .
+                addCheckBox('request_dr',  $request_dr  == '1', '1', ' id="request_dr"') . '<label for="request_dr">' . _("On Delivery") . '</label>';
         }
     }
 
-    echo '      </td>' . "\n" .
-        '   </tr>' . "\n" .
-        '   <tr>'  . "\n" .
-        '      <td></td>' . "\n" .
-        '      <td>' . "\n" .
+    echo '      </div>' . "\n" .
         '         <input type="submit" name="sigappend" value="' . _("Signature") . '" />' . "\n";
     if ($use_javascript_addr_book) {
         echo "         <script language=\"JavaScript\"><!--\n document.write(\"".
@@ -1421,9 +1372,6 @@ function showComposeButtonRow() {
 
     echo '         <input type="submit" name="send" value="'. _("Send") . '" />' . "\n";
     do_hook('compose_button_row');
-
-    echo '      </td>' . "\n" .
-        '   </tr>' . "\n\n";
 }
 
 function checkInput ($show) {
@@ -1745,4 +1693,3 @@ function deliverMessage(&$composeMessage, $draft=false) {
     }
     return $succes;
 }
-
