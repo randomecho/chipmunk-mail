@@ -774,6 +774,7 @@ function mail_message_listing_beginning ($imapConnection,
 //    $location = urlencode($location);
 
     echo '<input type="hidden" name="location" value="'.$location.'">';
+    echo "\n";
 
     /* draws thread sorting links */
     if ($allow_thread_sort == TRUE) {
@@ -784,14 +785,12 @@ function mail_message_listing_beginning ($imapConnection,
             $set_thread = 1;
             $thread_name = _("Thread View");
         }
-        echo html_tag( 'tr' ,
-                    html_tag( 'td' ,
-                              '&nbsp;<small><a href="' . $source_url . '?sort='
-                              . "$sort" . '&amp;start_messages=1&amp;set_thread=' . "$set_thread"
-                              . '&amp;mailbox=' . urlencode($mailbox) . '">' . $thread_name
-                              . '</a></small>&nbsp;'
-                     , '', '', '' )
-                 , '', '', '' );
+        echo html_tag( 'div',
+            '&nbsp;<small><a href="' . $source_url . '?sort='
+            . "$sort" . '&amp;start_messages=1&amp;set_thread=' . "$set_thread"
+            . '&amp;mailbox=' . urlencode($mailbox) . '">' . $thread_name
+            . '</a></small>&nbsp;'
+            , '', '', 'class="threadviewer"' );
     }
 
     echo "\n";
