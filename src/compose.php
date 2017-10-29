@@ -1258,13 +1258,15 @@ function showInputForm ($session, $values=false) {
         } else {
             $maxsize_text = $maxsize_input = '';
         }
-        echo '   <div class="attachments" style="background:' .$color[9]. '"><h3>' . "\n" .
-            _("Attach:") . '</h3>' . "\n" .
+        echo '   <div class="attachments" style="background:' .$color[0]. '">' . "\n" .
+            '<div class="attachments-add">' . "\n" .
+            '<h3>' . _("Attach:") . '</h3>' . "\n" .
             $maxsize_input .
             ' <input name="attachfile" size="48" type="file" />' . "\n" .
             ' &nbsp;&nbsp;<input type="submit" name="attach"' .
             ' value="' . _("Add") .'" />' . "\n" .
-            $maxsize_text ;
+            $maxsize_text .
+            '</div>' . "\n" .
 
         $s_a = array();
         global $username, $attachment_dir;
@@ -1277,27 +1279,27 @@ function showInputForm ($session, $values=false) {
                     $type = $attachment->mime_header->type0.'/'.
                         $attachment->mime_header->type1;
 
-                    $s_a[] = '<table bgcolor="'.$color[0].
-                        '" border="0"><tr><td>'.
-                        addCheckBox('delete[]', FALSE, $key).
-                        "</td><td>\n" . $attached_filename .
-                        '</td><td>-</td><td> ' . $type . '</td><td>('.
+                    $s_a[] = addCheckBox('delete[]', FALSE, $key, ' class="attachment-checkbox" id="attach-item-' . $key . '"').
+                        '  <label for="attach-item-' . $key . '" class="attachment-filename">' . $attached_filename . "\n" .
+                        '  <div class="attachment-meta">' . $type . ' ('.
                         show_readable_size( filesize( $hashed_attachment_dir . '/' . $attached_file ) ) .
-                        ')</td></tr></table>'."\n";
+                        ')</div></label>'."\n";
                 }
             }
         }
         if (count($s_a)) {
+            echo '<ul>'. "\n";
             foreach ($s_a as $s) {
-                echo '<tr>' . html_tag( 'td', '', 'left', $color[0], 'colspan="20"' ) . $s .'</td></tr>';
+                echo '<li>'. $s .'</li>'. "\n";
             }
-            echo '<tr><td colspan="21"><input type="submit" name="do_delete" value="' .
+            echo '</ul>'. "\n";
+            echo '<div class="attachments-delete"><input type="submit" name="do_delete" value="' .
                 _("Delete selected attachments") . "\" />\n" .
-                '</td></tr>';
+                '</div>';
         }
     } // End of file_uploads if-block
     /* End of attachment code */
-    echo '</div>' . "\n" .
+    echo "\n" .
         addHidden('username', $username).
         addHidden('smaction', $action).
         addHidden('mailbox', $mailbox);
