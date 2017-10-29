@@ -1166,7 +1166,7 @@ function showInputForm ($session, $values=false) {
 
     echo '   <div class="email-fields">' . "\n" .
         '      <div class="compose-input"><label for="send_to">' . _("To:") . '</label>'. "\n" .
-        substr(addInput('send_to', $send_to, '', '', ' id="send_to"'), 0, -3). $onfocus . ' >' . "\n" .
+        substr(addInput('send_to', $send_to, '', '', ' id="send_to" required'), 0, -3). $onfocus . ' >' . "\n" .
         '      </div>' . "\n" .
         '      <div class="compose-input"><label for="send_to_cc">' . _("Cc:") . '</label>'. "\n" .
         substr(addInput('send_to_cc', $send_to_cc, '', '', ' id="send_to_cc"' . _("Cc:") . '"'), 0, -3). $onfocus . ' >' . "\n" .
