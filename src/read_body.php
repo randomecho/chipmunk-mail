@@ -498,26 +498,22 @@ function formatEnvheader($mailbox, $passed_id, $passed_ent_id, $message,
         }
     }
 
-    $s  = '<table width="100%" cellpadding="0" cellspacing="2" border="0"';
-    $s .= ' align="center" bgcolor="'.$color[0].'">';
+    $s  = '<div style="background:'.$color[0].'">'."\n";
     foreach ($env as $key => $val) {
         if ($val) {
-            $s .= '<tr>';
-            $s .= html_tag('td', '<b>' . $key . ':&nbsp;&nbsp;</b>', 'right', '', 'valign="top" width="20%"') . "\n";
-            $s .= html_tag('td', $val, 'left', '', 'valign="top" width="80%"') . "\n";
-            $s .= '</tr>';
+            $s .= '<div>';
+            $s .= html_tag('div', '<b>' . $key . ':&nbsp;&nbsp;</b>'. $val) . "\n";
+            $s .= '</div>';
         }
     }
-    echo '<table bgcolor="'.$color[9].'" width="100%" cellpadding="1"'.
-         ' cellspacing="0" border="0" align="center">'."\n";
-    echo '<tr><td height="5" colspan="2" bgcolor="'.
-          $color[4].'"></td></tr><tr><td align="center">'."\n";
+    echo '<div style="background:'.$color[9].'">'."\n";
+    echo '<div style="background:'.$color[4].';height:10px;">&nbsp;</div>'."\n";
     echo $s;
     do_hook('read_body_header');
     formatToolbar($mailbox, $passed_id, $passed_ent_id, $message, $color);
-    echo '</table>';
-    echo '</td></tr><tr><td height="5" colspan="2" bgcolor="'.$color[4].'"></td></tr>'."\n";
-    echo '</table>';
+    echo '</div>';
+    echo '<div style="background:'.$color[4].';height:10px;">&nbsp;</div>'."\n";
+    echo '</div>';
 }
 
 function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_response) {
@@ -527,9 +523,7 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
 
     $topbar_delimiter = '&nbsp;|&nbsp;';
     $urlMailbox = urlencode($mailbox);
-    $s = '<table width="100%" cellpadding="3" cellspacing="0" align="center"'.
-         ' border="0" bgcolor="'.$color[9].'"><tr>' .
-         html_tag( 'td', '', 'left', '', 'width="33%"' ) . '<small>';
+    $s = '<div style="background:'.$color[9].'"><div>' . '<small>';
 
     $msgs_url = $base_uri . 'src/';
     if (isset($where) && isset($what)) {
@@ -582,7 +576,7 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
         $s .= makeComposeLink($comp_alt_uri, $comp_alt_string);
     }
 
-    $s .= '</small></td><td align="center" width="33%"><small>';
+    $s .= '</small></div><div><small>';
 
     if (!(isset($where) && isset($what)) && !$passed_ent_id) {
         $prev = findPreviousMessage($mbx_response['EXISTS'], $passed_id);
@@ -646,8 +640,7 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
         $s .= $topbar_delimiter . $next_link;
     }
 
-    $s .= '</small></td>' . "\n" .
-          html_tag( 'td', '', 'right', '', 'width="33%" nowrap' ) . '<small>';
+    $s .= '</small></div>' . "\n" . '<small>';
     $comp_action_uri = $comp_uri . '&amp;smaction=forward';
     $s .= makeComposeLink($comp_action_uri, _("Forward"));
 
@@ -664,7 +657,7 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
     $comp_action_uri = $comp_uri . '&amp;smaction=reply_all';
     $s .= $topbar_delimiter;
     $s .= makeComposeLink($comp_action_uri, _("Reply All"));
-    $s .= '</small></td></tr></table>';
+    $s .= '</small></div>';
     $ret = concat_hook_function('read_body_menu_top', $s);
     if($ret != '') {
         $s = $ret;
@@ -692,9 +685,8 @@ function formatToolbar($mailbox, $passed_id, $passed_ent_id, $message, $color) {
 
     $url = $base_uri.'src/view_header.php?'.$query_string;
 
-    $s  = "<tr>\n" .
-          html_tag( 'td', '', 'right', '', 'valign="middle" width="20%"' ) . '<b>' . _("Options") . ":&nbsp;&nbsp;</b></td>\n" .
-          html_tag( 'td', '', 'left', '', 'valign="middle" width="80%"' ) . '<small>' .
+    $s  = "<div>\n" . '<b>' . _("Options") . ":&nbsp;&nbsp;</b>\n" .
+          '<small>' .
           '<a href="'.$url.'">'._("View Full Header").'</a>';
 
     /* Output the printer friendly link if we are in subtle mode. */
@@ -708,8 +700,7 @@ function formatToolbar($mailbox, $passed_id, $passed_ent_id, $message, $color) {
     }
 
     do_hook("read_body_header_right");
-    $s = "</small></td>\n" .
-         "</tr>\n";
+    $s = "</small>\n";
     echo $s;
 
 }
