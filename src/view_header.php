@@ -96,23 +96,19 @@ function view_header($header, $mailbox, $color) {
 
     displayPageHeader($color, $mailbox);
 
-    echo '<br />' .
-         '<table width="100%" cellpadding="2" cellspacing="0" border="0" '.
-            'align="center">' . "\n" .
-         '<tr><td bgcolor="'.$color[9].'" width="100%" align="center"><b>'.
-         _("Viewing Full Header") . '</b> - '.
+    echo '<header style="background:'.$color[9].'"><h1>'.
+         _("Viewing Full Header") . '</h1>'.
          '<a href="'; 
     echo_template_var($ret_addr);
-    echo '">' ._("View message") . "</a></b></td></tr></table>\n";
+    echo '">' ._("View message") . "</a></header>\n";
 
     echo_template_var($header, 
         array(
-            '<table width="99%" cellpadding="2" cellspacing="0" border="0" '.
-                "align=center>\n".'<tr><td>',
-            '<nobr><tt><b>',
+            '<div class="view-full-header">',
+            '<tt><b>',
             '</b>',
-            '</tt></nobr>',
-            '</td></tr></table>'."\n" 
+            '</tt>'. "\n",
+            '</div>'."\n"
          )
     );
     echo '</body></html>';
