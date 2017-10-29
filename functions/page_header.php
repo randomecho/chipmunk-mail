@@ -274,24 +274,16 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
     if ( $shortBoxName == 'INBOX' ) {
         $shortBoxName = _("INBOX");
     }
-    echo "<a name=\"pagetop\"></a>\n"
-        . html_tag( 'table', '', '', $color[4], 'border="0" width="100%" cellspacing="0" cellpadding="2"' ) ."\n"
-        . html_tag( 'tr', '', '', $color[9] ) ."\n"
-        . html_tag( 'td', '', 'left' ) ."\n";
+    echo "<a name=\"pagetop\"></a>\n";
+
     if ( $shortBoxName <> '' && strtolower( $shortBoxName ) <> 'none' ) {
         echo '         ' . _("Current Folder") . ": <b>$shortBoxName&nbsp;</b>\n";
-    } else {
-        echo '&nbsp;';
     }
-    echo  "      </td>\n"
-        . html_tag( 'td', '', 'right' ) ."<b>\n";
-    displayInternalLink ('src/signout.php', _("Sign Out"), $frame_top);
-    echo "</b></td>\n"
-        . "   </tr>\n"
-        . html_tag( 'tr', '', '', $color[4] ) ."\n"
-        . ($hide_sm_attributions ? html_tag( 'td', '', 'left', '', 'colspan="2"' )
-                                 : html_tag( 'td', '', 'left' ) )
-        . "\n";
+    echo "\n" . '<div class="signout" style="background:' . $color[9] . '">'. "\n";
+    echo displayInternalLink ('src/signout.php', _("Sign Out"), $frame_top);
+    echo "\n" . '</div>' . "\n";
+
+    echo "\n" . '<nav style="background:' . $color[0] . '">'. "\n";
     $urlMailbox = urlencode($mailbox);
     $startMessage = (int)$startMessage;
     echo makeComposeLink('src/compose.php?mailbox='.$urlMailbox.'&amp;startMessage='.$startMessage);
@@ -309,18 +301,16 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
 
     do_hook('menuline');
 
-    echo "      </td>\n";
+    echo "\n" . '</nav>' . "\n";
 
     if (!$hide_sm_attributions)
     {
-        echo html_tag( 'td', '', 'right' ) ."\n";
+        echo "<div>\n";
         if (!isset($provider_uri)) $provider_uri= 'http://squirrelmail.org/';
         if (!isset($provider_name)) $provider_name= 'SquirrelMail';
         echo '<a href="'.$provider_uri.'" target="_blank">'.$provider_name.'</a>';
-        echo "</td>\n";
+        echo "\n</div>\n";
     }
-    echo "   </tr>\n".
-        "</table><br>\n\n";
 }
 
 /* blatently copied/truncated/modified from the above function */
