@@ -1048,11 +1048,7 @@ function print_option_groups($option_groups) {
     foreach ($option_groups as $next_optgrp) {
         /* If it is not blank, print the name for this option group. */
         if ($next_optgrp['name'] != '') {
-            echo html_tag( 'tr', "\n".
-                        html_tag( 'td',
-                            '<b>' . $next_optgrp['name'] . '</b>' ,
-                        'center' ,'', 'valign="middle" colspan="2" nowrap' )
-                    ) ."\n";
+            echo html_tag( 'h2', "\n". $next_optgrp['name']) ."\n";
         }
 
         /* Print each option in this option group. */
@@ -1077,29 +1073,26 @@ function print_option_groups($option_groups) {
                 global $color;
                 //$info_bgcolor = 0;
                 $info_bgcolor = 4;
-                $info_width = 80;
+
                 if ($option->type == SMOPT_TYPE_INFO)
-                    echo html_tag('tr', "\n" . html_tag('td', "\n" . html_tag('table', "\n" . html_tag('tr', "\n" . html_tag('td', "\n" . $option->createHTMLWidget())), '', $color[$info_bgcolor], 'width="' . $info_width . '%"'), 'center' ,'', 'colspan="2" valign="middle"')) ."\n";
+                    echo html_tag('div', $option->createHTMLWidget()) ."\n";
                 else
-                    echo html_tag( 'tr', "\n".
-                               html_tag( 'td', $option->caption . (!empty($option->caption) ? ':' : ''), 'right' ,'', 'valign="middle"' . ($option->caption_wrap ? '' : ' style="white-space:nowrap"') ) .
-                               html_tag( 'td', $option->createHTMLWidget(), 'left' )
-                           ) ."\n";
+                    echo html_tag( 'div', "\n". $option->caption . (!empty($option->caption) ? ':' : ''));
+                    echo html_tag( 'div', $option->createHTMLWidget() )."\n";
+
+                echo html_tag( 'div', '&nbsp;', null, null, 'style="height: 10px;"') . "\n";
             } else {
                 $hidden_options .= $option->createHTMLWidget();
             }
         }
 
         /* Print an empty row after this option group. */
-        echo html_tag( 'tr',
-                   html_tag( 'td', '&nbsp;' . $hidden_options, 'left', '', 'colspan="2"' )
-                ) . "\n";
+        echo html_tag( 'div', '&nbsp;', null, null, 'style="height: 10px;"') . "\n";
     }
 }
 
-function OptionSubmit( $name ) {
-        echo html_tag( 'tr',
-                   html_tag( 'td', '<input type="submit" value="' . _("Submit") . '" name="' . $name . '" />&nbsp;&nbsp;&nbsp;&nbsp;', 'right', '', 'colspan="2"' )
-                ) . "\n";
+function OptionSubmit( $name )
+{
+    echo html_tag( 'div', '<input type="submit" value="' . _("Submit") . '" name="' . $name . '" />&nbsp;&nbsp;&nbsp;&nbsp;' ) . "\n";
 }
 
