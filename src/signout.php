@@ -71,29 +71,43 @@ set_up_language($squirrelmail_language, true, true);
     }
 ?>
    <title><?php echo $org_title . ' - ' . _("Signout"); ?></title>
+    <style>
+    body {
+      background: <?php echo $color[4]; ?>;
+      color: <?php echo $color[8]; ?>;
+    }
+    div {
+      background: <?php echo $color[4]; ?>;
+    }
+    header {
+      background: <?php echo $color[0]; ?>;
+    }
+    a {
+      color: <?php echo $color[7]; ?>;
+    }
+    a:visited {
+      color: <?php echo $color[7]; ?>;
+    }
+    a:hover, a:active {
+      color: <?php echo $color[7]; ?>;
+    }
+    </style>
 </head>
-<body text="<?php echo $color[8]; ?>" bgcolor="<?php echo $color[4]; ?>"
-link="<?php echo $color[7]; ?>" vlink="<?php echo $color[7]; ?>"
-alink="<?php echo $color[7]; ?>">
-<br /><br />
+<body>
 <?php
 $plugin_message = concat_hook_function('logout_above_text');
-echo
-html_tag( 'table',
-    html_tag( 'tr',
-         html_tag( 'th', _("Sign Out"), 'center' ) ,
-    '', $color[0], 'width="100%"' ) .
+$plugin_message = 'ahoasf';
+echo html_tag( 'header',
+    html_tag( 'h1', _("Sign Out") ) ,
+    null, null );
+echo html_tag( 'div',
     $plugin_message .
-    html_tag( 'tr',
-         html_tag( 'td', _("You have been successfully signed out.") .
-             '<br /><a href="login.php" target="' . $frame_top . '">' .
-             _("Click here to log back in.") . '</a><br />' ,
-         'center' ) ,
-    '', $color[4], 'width="100%"' ) .
-    html_tag( 'tr',
-         html_tag( 'td', '<br />', 'center' ) ,
-    '', $color[0], 'width="100%"' ) ,
-'center', $color[4], 'width="50%" cols="1" cellpadding="2" cellspacing="0" border="0"' )
+    null, null );
+echo html_tag( 'div',
+    html_tag( 'p', _("You have been successfully signed out."), null ) .
+    html_tag( 'p', '<a href="login.php" target="' . $frame_top . '">' .
+         _("Click here to log back in.") . '</a>' , null ) .
+    null, null );
 ?>
 </body>
 </html>
