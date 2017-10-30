@@ -3,14 +3,36 @@ body, td, th, dd, dt, h1, h2, h3, h4, h5, h6, p, ol, ul, li {
 }
 
 body {
+  font-size: 1.1em;
   margin: 0.1em;
+  padding: 0;
+}
+
+form {
+  margin: 0;
+  padding: 0;
 }
 
 td, th {
 }
 
-textarea, pre {
+input[type="text"], textarea, pre {
   font-family: monospace;
+  font-size: 1.2em;
+}
+
+.compose-input {
+  display: block;
+  margin: 1em;
+  padding: 0;
+}
+
+.email-fields input[type="text"] {
+  box-sizing: border-box;
+  display: block;
+  margin: 0 auto;
+  padding: 0.2em 0;
+  width: 100%;
 }
 
 .signout {

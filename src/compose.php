@@ -1169,7 +1169,7 @@ function showInputForm ($session, $values=false) {
         substr(addInput('send_to', $send_to, '', '', ' id="send_to" required'), 0, -3). $onfocus . ' >' . "\n" .
         '      </div>' . "\n" .
         '      <div class="compose-input"><label for="send_to_cc">' . _("Cc:") . '</label>'. "\n" .
-        substr(addInput('send_to_cc', $send_to_cc, '', '', ' id="send_to_cc"' . _("Cc:") . '"'), 0, -3). $onfocus . ' >' . "\n" .
+        substr(addInput('send_to_cc', $send_to_cc, '', '', ' id="send_to_cc"'), 0, -3). $onfocus . ' >' . "\n" .
         '      </div>' . "\n" .
         '      <div class="compose-input"><label for="send_to_bcc">' . _("Bcc:") . '</label>'. "\n" .
         substr(addInput('send_to_bcc', $send_to_bcc, '', '', ' id="send_to_bcc"'), 0, -3). $onfocus . ' >' . "\n" .
