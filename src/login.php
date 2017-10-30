@@ -197,9 +197,6 @@ echo html_tag( 'table',
                 sprintf(_("%s Logo"), $org_name) .'"' . $width_and_height .
                 ' /><br />' . "\n"
               : '' ).
-            ( (isset($hide_sm_attributions) && $hide_sm_attributions) ? '' :
-            '<small>' . sprintf (_("SquirrelMail version %s"), $version) . '<br />' ."\n".
-            '  ' . _("By the SquirrelMail Project Team") . '<br /></small>' . "\n" ) .
             html_tag( 'table',
                 html_tag( 'tr',
                     html_tag( 'td',
@@ -242,6 +239,10 @@ echo html_tag( 'table',
 '', $color[4], 'border="0" cellspacing="0" cellpadding="0" width="100%"' );
 do_hook('login_form');
 echo '</form>' . "\n";
+
+echo ( (isset($hide_sm_attributions) && $hide_sm_attributions) ? '' :
+'<div class="attribution">' . sprintf (_("SquirrelMail version %s"), $version) . '<br />' ."\n".
+'  ' . _("By the SquirrelMail Project Team") . '</div>' . "\n" );
 
 do_hook('login_bottom');
 ?>
