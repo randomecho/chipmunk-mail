@@ -2,9 +2,18 @@ body, td, th, dd, dt, h1, h2, h3, h4, h5, h6, p, ol, ul, li {
   font-family: sans-serif;
 }
 
+body {
+  margin: 0.1em;
+}
+
 td, th {
 }
 
 textarea, pre {
   font-family: monospace;
+}
+
+.signout {
+  padding: 0.5em;
+  text-align: right;
 }
