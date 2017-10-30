@@ -188,55 +188,23 @@ if (isset($org_logo) && $org_logo) {
     }
 }
 
-echo html_tag( 'table',
-    html_tag( 'tr',
-        html_tag( 'td',
-            '<center>'.
-            ( isset($org_logo) && $org_logo
-              ? '<img src="' . $org_logo . '" alt="' .
-                sprintf(_("%s Logo"), $org_name) .'"' . $width_and_height .
-                ' /><br />' . "\n"
-              : '' ).
-            html_tag( 'table',
-                html_tag( 'tr',
-                    html_tag( 'td',
-                        '<b>' . sprintf (_("%s Login"), $org_name) . "</b>\n",
-                    'center', $color[0] )
-                ) .
-                html_tag( 'tr',
-                    html_tag( 'td',  "\n" .
-                        html_tag( 'table',
-                            html_tag( 'tr',
-                                html_tag( 'td',
-                                    _("Name:") ,
-                                'right', '', 'width="30%"' ) .
-                                html_tag( 'td',
-				    addInput($username_form_name, $loginname_value, 0, 0, ' onfocus="alreadyFocused=true;"'),
-                                'left', '', 'width="70%"' )
-                                ) . "\n" .
-                            html_tag( 'tr',
-                                html_tag( 'td',
-                                    _("Password:") ,
-                                'right', '', 'width="30%"' ) .
-                                html_tag( 'td',
-				    addPwField($password_form_name, null, ' onfocus="alreadyFocused=true;"').
-				    addHidden('js_autodetect_results', SMPREF_JS_OFF).
-                    $mailtofield . 
-				    addHidden('just_logged_in', '1'),
-                                'left', '', 'width="70%"' )
-                            ) ,
-                        'center', $color[4], 'border="0" width="100%"' ) ,
-                    'left',$color[4] )
-                ) . 
-                html_tag( 'tr',
-                    html_tag( 'td',
-                        '<center>'. addSubmit(_("Login")) .'</center>',
-                    'left' )
-                ),
-            '', $color[4], 'border="0" width="350"' ) . '</center>',
-        'center' )
-    ) ,
-'', $color[4], 'border="0" cellspacing="0" cellpadding="0" width="100%"' );
+echo html_tag( 'header',
+    ( isset($org_logo) && $org_logo
+      ? '<div class="login-logo"><img src="' . $org_logo . '" alt="' .
+        sprintf(_("%s Logo"), $org_name) .'"' . $width_and_height .
+        ' /></div>' . "\n"
+      : '' ).
+        html_tag( 'h1', sprintf (_("%s Login"), $org_name) . "\n" ));
+
+echo html_tag( 'label', _("Name:") , null, null, 'for="login-user"' ) .
+    addInput($username_form_name, $loginname_value, 0, 0, ' onfocus="alreadyFocused=true;" required id="login-user"') .
+    html_tag( 'label', _("Password:"), null, null, 'for="login-pwd"' ) .
+    addPwField($password_form_name, null, ' onfocus="alreadyFocused=true;" required id="login-pwd"') .
+    addHidden('js_autodetect_results', SMPREF_JS_OFF) .
+    $mailtofield .
+    addHidden('just_logged_in', '1'),
+    html_tag( 'div', addSubmit(_("Login")), null, null, 'class="login-submit"' );
+
 do_hook('login_form');
 echo '</form>' . "\n";
 
