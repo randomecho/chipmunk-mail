@@ -65,56 +65,51 @@ $abook_sort_order = get_abook_sort();
  * @param array $values
  * @param string $add
  */
-function addressbook_inp_field($label, $field, $name, $size, $values, $add) {
+function addressbook_inp_field($label, $field, $name, $size, $values, $add)
+{
     global $color;
     $value = ( isset($values[$field]) ? $values[$field] : '');
 
-    $td_str = addInput($name.'['.$field.']', $value, $size)
+    $td_str = addInput($name.'['.$field.']', $value, $size, null, ' id="adr-' . $field . '"')
         . $add ;
 
-    return html_tag( 'tr' ,
-            html_tag( 'td', $label . ':', 'right', $color[4]) .
-            html_tag( 'td', $td_str, 'left', $color[4])
-            )
-        . "\n";
+    return '<label for="adr-' . $field . '">' . $label . '</label>' .
+            '<div class="abook-field">' . $td_str . "</div>\n";
 }
 
 /**
  * Output form to add and modify address data
  */
-function address_form($name, $submittext, $values = array()) {
+function address_form($name, $submittext, $values = array())
+{
     global $color, $squirrelmail_language;
 
     if ($squirrelmail_language == 'ja_JP') {
-        echo html_tag( 'table',
-                addressbook_inp_field(_("Nickname"),     'nickname', $name, 15, $values,
-                    ' <small>' . _("Must be unique") . '</small>') .
-                addressbook_inp_field(_("E-mail address"),  'email', $name, 45, $values, '') .
-                addressbook_inp_field(_("Last name"),    'lastname', $name, 45, $values, '') .
-                addressbook_inp_field(_("First name"),  'firstname', $name, 45, $values, '') .
-                addressbook_inp_field(_("Additional info"), 'label', $name, 45, $values, '') .
+        echo html_tag( 'div',
+                addressbook_inp_field(_("Nickname"),     'nickname', $name, '', $values,
+                    ' <br><small>' . _("Must be unique") . '</small>') .
+                addressbook_inp_field(_("E-mail address"),  'email', $name, '', $values, '') .
+                addressbook_inp_field(_("Last name"),    'lastname', $name, '', $values, '') .
+                addressbook_inp_field(_("First name"),  'firstname', $name, '', $values, '') .
+                addressbook_inp_field(_("Additional info"), 'label', $name, '', $values, '') .
                 list_writable_backends($name) .
-                html_tag( 'tr',
-                    html_tag( 'td',
-                        addSubmit($submittext, $name.'[SUBMIT]'),
-                        'center', $color[4], 'colspan="2"')
-                    )
-                , 'center', '', 'border="0" cellpadding="1" width="90%"') ."\n";
+                html_tag( 'div',
+                    addSubmit($submittext, $name.'[SUBMIT]'),
+                    null, null, 'class="abook-save"')
+                , null, null, 'class="abook-entry"') ."\n";
     } else {
-        echo html_tag( 'table',
-                addressbook_inp_field(_("Nickname"),     'nickname', $name, 15, $values,
-                    ' <small>' . _("Must be unique") . '</small>') .
-                addressbook_inp_field(_("E-mail address"),  'email', $name, 45, $values, '') .
-                addressbook_inp_field(_("First name"),  'firstname', $name, 45, $values, '') .
-                addressbook_inp_field(_("Last name"),    'lastname', $name, 45, $values, '') .
-                addressbook_inp_field(_("Additional info"), 'label', $name, 45, $values, '') .
+        echo html_tag( 'div',
+                addressbook_inp_field(_("Nickname"),     'nickname', $name, '', $values,
+                    ' <br><small>' . _("Must be unique") . '</small>') .
+                addressbook_inp_field(_("E-mail address"),  'email', $name, '', $values, '') .
+                addressbook_inp_field(_("First name"),  'firstname', $name, '', $values, '') .
+                addressbook_inp_field(_("Last name"),    'lastname', $name, '', $values, '') .
+                addressbook_inp_field(_("Additional info"), 'label', $name, '', $values, '') .
                 list_writable_backends($name) .
-                html_tag( 'tr',
-                    html_tag( 'td',
-                        addSubmit($submittext, $name.'[SUBMIT]') ,
-                        'center', $color[4], 'colspan="2"')
-                    )
-                , 'center', '', 'border="0" cellpadding="1" width="90%"') ."\n";
+                html_tag( 'div',
+                    addSubmit($submittext, $name.'[SUBMIT]') ,
+                    null, null, 'class="abook-save"')
+                , null, null, 'class="abook-entry"') ."\n";
     }
 }
 
@@ -149,10 +144,7 @@ function list_writable_backends($name) {
         }
     }
     // Only one backend exists or is writeable.
-    return html_tag( 'tr',
-                     html_tag( 'td',
-                               addHidden('backend', $writeable_abook),
-                               'center', $color[4], 'colspan="2"')) . "\n";
+    return addHidden('backend', $writeable_abook) . "\n";
 }
 
 // Create page header before addressbook_init in order to
@@ -580,13 +572,7 @@ if ($showaddrlist) {
 /* Display the "new address" form */
 echo '<a name="AddAddress"></a>' . "\n" .
     addForm($form_url, 'post', 'f_add', '', '', '', TRUE).
-    html_tag( 'table',  
-        html_tag( 'tr',
-            html_tag( 'td', "\n". '<strong>' . sprintf(_("Add to %s"), $abook->localbackendname) . '</strong>' . "\n",
-                'center', $color[0]
-                )
-            )
-        , 'center', '', 'width="95%"' ) ."\n";
+    html_tag( 'h1', sprintf(_("Add to %s"), $abook->localbackendname) ) ."\n";
 address_form('addaddr', _("Add address"), $defdata);
 echo "</form>\n";
 
