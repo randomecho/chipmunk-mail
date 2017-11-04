@@ -55,6 +55,15 @@ nav li {
   width: 100%;
 }
 
+.mailbox-subject {
+  margin-bottom: 1em;
+}
+
+.message-info {
+  border-bottom: 1px dotted;
+  padding: 0.9em;
+}
+
 .signout {
   padding: 0.5em;
   text-align: right;

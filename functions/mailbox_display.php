@@ -322,8 +322,7 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
         }
     }
     if ($not_last) {
-        echo '</div>' . "\n" . '<div style="background:' .
-             $color[0] . ';height:10px;">&nbsp;</div>' . "\n";
+        echo '</div>' . "\n\n";
     } else {
         echo '</div>'."\n";
     }
