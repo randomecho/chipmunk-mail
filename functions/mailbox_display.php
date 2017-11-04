@@ -841,15 +841,14 @@ function printHeader($mailbox, $sort, $color, $showsort=true) {
         switch ($item) {
         case 1: /* checkbox */
         case 5: /* flags */
-            echo html_tag( 'div' ,'&nbsp;' , '', '', 'class="mailsort-flags"' );
             break;
         case 2: /* from */
             if (handleAsSent($mailbox)) {
                 echo html_tag( 'div' ,'' , '', '', 'class="mailsort-from"' )
-                     . '<b>' . _("To") . '</b>';
+                     . _("To");
             } else {
                 echo html_tag( 'div' ,'' , '', '', 'class="mailsort-from"' )
-                     . '<b>' . _("From") . '</b>';
+                     . _("From");
             }
             if ($showsort) {
                 ShowSortButton($sort, $mailbox, 2, 3);
@@ -858,9 +857,7 @@ function printHeader($mailbox, $sort, $color, $showsort=true) {
             break;
         case 3: /* date */
             echo html_tag( 'div' ,'' , '', '', 'class="mailsort-date"' )
-                 . '<b>'
-                 . ($internal_date_sort && ($sort == 0 || $sort == 1) ? _("Received") : _("Date"))
-                 . '</b>';
+                 . ($internal_date_sort && ($sort == 0 || $sort == 1) ? _("Received") : _("Date"));
             if ($showsort) {
                 ShowSortButton($sort, $mailbox, 0, 1);
             }
@@ -868,7 +865,7 @@ function printHeader($mailbox, $sort, $color, $showsort=true) {
             break;
         case 4: /* subject */
             echo html_tag( 'div' ,'' , '', '', 'class="mailsort-subject"' )
-                 . '<b>' . _("Subject") . '</b>';
+                 . _("Subject");
             if ($showsort) {
                 ShowSortButton($sort, $mailbox, 4, 5);
             }
@@ -876,7 +873,7 @@ function printHeader($mailbox, $sort, $color, $showsort=true) {
             break;
         case 6: /* size */
             echo html_tag( 'div' , '', '', '', 'class="mailsort-size"' )
-                 . '<b>' . _("Size") . '</b>';
+                 . _("Size");
             if ($showsort) {
                 ShowSortButton($sort, $mailbox, 8, 9);
             }
