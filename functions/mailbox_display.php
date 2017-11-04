@@ -120,7 +120,7 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
     if (substr($senderName, 0, 6) == '&quot;'
      && substr($senderName, -6) == '&quot;')
         $senderName = substr(substr($senderName, 0, -6), 6);
-    echo html_tag( 'tr','','','','valign="top"') . "\n";
+    echo html_tag( 'div','','','','class="message-info"') . "\n";
 
     if (isset($msg['FLAG_FLAGGED']) && ($msg['FLAG_FLAGGED'] == true)) {
         $flag = "<font color=\"$color[2]\">";
@@ -216,21 +216,22 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
         foreach ($index_order as $index_order_part) {
             switch ($index_order_part) {
             case 1: /* checkbox */
-                echo html_tag( 'td',
+                echo html_tag( 'div',
                                "<input type=\"checkbox\" name=\"msg[$t]\" id=\"msg".$msg['ID'].
                                    "\" value=\"".$msg['ID']."\"$checked>",
-                               'center',
-                               $hlt_color );
+                               null,
+                               $hlt_color,
+                               'class="mailbox-checkbox"' );
                 break;
             case 2: /* from */
                 $from_xtra = '';
-                $from_xtra = 'title="' . $senderFrom . '"';
-                echo html_tag( 'td',
+                $from_xtra = 'title="' . $senderFrom . '" class="mailbox-from"';
+                echo html_tag( 'div',
                     html_tag('label',
                                $italic . $bold . $flag . $fontstr . sm_truncate_string($senderName, $truncate_sender, '...', TRUE) .
                                $fontstr_end . $flag_end . $bold_end . $italic_end,
                            '','','for="msg'.$msg['ID'].'"'),
-                           'left',
+                           null,
                            $hlt_color, $from_xtra );
                 break;
             case 3: /* date */
@@ -243,12 +244,12 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
                 if ($date_string == '') {
                     $date_string = _("Unknown date");
                 }
-                echo html_tag( 'td',
+                echo html_tag( 'div',
                                $bold . $flag . $fontstr . $date_string .
                                $fontstr_end . $flag_end . $bold_end,
-                               'center',
+                               null,
                                $hlt_color,
-                               'nowrap' );
+                               'nowrap class="mailbox-date"' );
                 break;
             case 4: /* subject */
                 $td_str = $bold;
@@ -269,7 +270,7 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
                     $td_str .= " title=\"$title\"";
                 }
                 $td_str .= ">$flag$subject$flag_end</a>$bold_end";
-                echo html_tag( 'td', $td_str, 'left', $hlt_color );
+                echo html_tag( 'div', $td_str, null, $hlt_color, 'class="mailbox-subject"' );
                 break;
             case 5: /* flags */
                 $stuff = false;
@@ -303,28 +304,29 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
                 }
                 do_hook("msg_envelope");
                 $td_str .= '</small></b>';
-                echo html_tag( 'td',
+                echo html_tag( 'div',
                                $td_str,
-                               'center',
+                               null,
                                $hlt_color,
-                               'nowrap' );
+                               'nowrap class="mailbox-flags"' );
                 break;
             case 6: /* size */
-                echo html_tag( 'td',
+                echo html_tag( 'div',
                                $bold . $fontstr . show_readable_size($msg['SIZE']) .
                                $fontstr_end . $bold_end,
-                               'right',
-                               $hlt_color );
+                               null,
+                               $hlt_color,
+                               'class="mailbox-size"'  );
                 break;
             }
             ++$col;
         }
     }
     if ($not_last) {
-        echo '</tr>' . "\n" . '<tr><td colspan="' . $col . '" bgcolor="' .
-             $color[0] . '" height="1"></td></tr>' . "\n";
+        echo '</div>' . "\n" . '<div style="background:' .
+             $color[0] . ';height:10px;">&nbsp;</div>' . "\n";
     } else {
-        echo '</tr>'."\n";
+        echo '</div>'."\n";
     }
 }
 
@@ -540,13 +542,12 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
     /* line between the button area and the list */
     echo '<div style="height:10px; background: '.$color[4].'">&nbsp;</div>'."\n";
 
-    echo '<div>';
-    echo '<table width="100%" cellpadding="1" cellspacing="0" align="center" border="0" bgcolor="'.$color[5].'">';
+    echo '<div class="mailbox-display" style="background:'.$color[5].';">';
     printHeader($mailbox, $srt, $color, !$thread_sort_messages);
 
     displayMessageArray($imapConnection, $num_msgs, $start_msg,
                         $msort, $mailbox, $sort, $color, $show_num,0,0);
-    echo '</table>';
+    echo '</div>';
 
     mail_message_listing_end($num_msgs, $paginator_str, $msg_cnt_str, $color);
     echo '</div>';
@@ -828,7 +829,7 @@ function printHeader($mailbox, $sort, $color, $showsort=true) {
     // hide the sort buttons when using gmail
     if ($imap_server_type == 'gmail') $showsort = false;
 
-    echo html_tag( 'tr' ,'' , 'center', $color[5] );
+    echo html_tag( 'div' , null, null, null, 'class="mailsort-options" style="background:' . $color[5] . ';"' );
 
     /* calculate the width of the subject column based on the
      * widths of the other columns */
@@ -842,50 +843,50 @@ function printHeader($mailbox, $sort, $color, $showsort=true) {
         switch ($item) {
         case 1: /* checkbox */
         case 5: /* flags */
-            echo html_tag( 'td' ,'&nbsp;' , '', '', 'width="1%"' );
+            echo html_tag( 'div' ,'&nbsp;' , '', '', 'class="mailsort-flags"' );
             break;
         case 2: /* from */
             if (handleAsSent($mailbox)) {
-                echo html_tag( 'td' ,'' , 'left', '', 'width="25%"' )
+                echo html_tag( 'div' ,'' , '', '', 'class="mailsort-from"' )
                      . '<b>' . _("To") . '</b>';
             } else {
-                echo html_tag( 'td' ,'' , 'left', '', 'width="25%"' )
+                echo html_tag( 'div' ,'' , '', '', 'class="mailsort-from"' )
                      . '<b>' . _("From") . '</b>';
             }
             if ($showsort) {
                 ShowSortButton($sort, $mailbox, 2, 3);
             }
-            echo "</td>\n";
+            echo "</div>\n";
             break;
         case 3: /* date */
-            echo html_tag( 'td' ,'' , 'left', '', 'width="5%" nowrap' )
+            echo html_tag( 'div' ,'' , '', '', 'class="mailsort-date"' )
                  . '<b>'
                  . ($internal_date_sort && ($sort == 0 || $sort == 1) ? _("Received") : _("Date"))
                  . '</b>';
             if ($showsort) {
                 ShowSortButton($sort, $mailbox, 0, 1);
             }
-            echo "</td>\n";
+            echo "</div>\n";
             break;
         case 4: /* subject */
-            echo html_tag( 'td' ,'' , 'left', '', 'width="'.$subjectwidth.'%"' )
+            echo html_tag( 'div' ,'' , '', '', 'class="mailsort-subject"' )
                  . '<b>' . _("Subject") . '</b>';
             if ($showsort) {
                 ShowSortButton($sort, $mailbox, 4, 5);
             }
-            echo "</td>\n";
+            echo "</div>\n";
             break;
         case 6: /* size */
-            echo html_tag( 'td' ,'' , 'left', '', 'width="5%" nowrap' )
+            echo html_tag( 'div' , '', '', '', 'class="mailsort-size"' )
                  . '<b>' . _("Size") . '</b>';
             if ($showsort) {
                 ShowSortButton($sort, $mailbox, 8, 9);
             }
-            echo "</td>\n";
+            echo "</div>\n";
             break;
         }
     }
-    echo "</tr>\n";
+    echo "</div></div>\n";
 }
 
 
