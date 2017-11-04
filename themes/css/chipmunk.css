@@ -21,6 +21,26 @@ input[type="text"], textarea, pre {
   font-size: 1.2em;
 }
 
+nav {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1em;
+  text-align: center;
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav li {
+  display: inline-block;
+  flex: flex-grow;
+  margin: 0;
+  padding: 0.6em;
+}
+
 .compose-input {
   display: block;
   margin: 1em;

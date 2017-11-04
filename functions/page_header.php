@@ -91,7 +91,8 @@ ECHO;
     $pageheader_sent = TRUE;
 }
 
-function makeInternalLink($path, $text, $target='') {
+function makeInternalLink($path, $text, $target='')
+{
     sqgetGlobalVar('base_uri', $base_uri, SQ_SESSION);
     if ($target != '') {
         $target = " target=\"$target\"";
@@ -283,25 +284,26 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
     echo displayInternalLink ('src/signout.php', _("Sign Out"), $frame_top);
     echo "\n" . '</div>' . "\n";
 
-    echo "\n" . '<nav style="background:' . $color[0] . '">'. "\n";
+    echo "\n" . '<nav style="background:' . $color[0] . '"><ul>'. "\n";
     $urlMailbox = urlencode($mailbox);
     $startMessage = (int)$startMessage;
-    echo makeComposeLink('src/compose.php?mailbox='.$urlMailbox.'&amp;startMessage='.$startMessage);
-    echo "&nbsp;&nbsp;\n";
+    echo '<li>';
+    echo makeComposeLink('src/compose.php?mailbox='.$urlMailbox.'&amp;startMessage='.$startMessage) . "</li>\n";
+    echo "\n<li>";
     displayInternalLink ('src/addressbook.php', _("Addresses"));
-    echo "&nbsp;&nbsp;\n";
+    echo "</li>\n<li>";
     displayInternalLink ('src/folders.php', _("Folders"));
-    echo "&nbsp;&nbsp;\n";
+    echo "</li>\n<li>";
     displayInternalLink ('src/options.php', _("Options"));
-    echo "&nbsp;&nbsp;\n";
+    echo "</li>\n<li>";
     displayInternalLink ("src/search.php?mailbox=$urlMailbox", _("Search"));
-    echo "&nbsp;&nbsp;\n";
+    echo "</li>\n<li>";
     displayInternalLink ('src/help.php', _("Help"));
-    echo "&nbsp;&nbsp;\n";
+    echo "</li>\n";
 
     do_hook('menuline');
 
-    echo "\n" . '</nav>' . "\n";
+    echo "\n" . '</ul></nav>' . "\n";
 
     if (!$hide_sm_attributions)
     {
