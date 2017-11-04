@@ -213,6 +213,26 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
 //    $subject = processSubject($msg['SUBJECT'], $indent_array[$msg['ID']]);
     $subject = sm_truncate_string(str_replace('&nbsp;',' ',$msg['SUBJECT']), $truncate_subject, '...', TRUE);
     if (sizeof($index_order)) {
+        $td_str = $bold;
+        if ($thread_sort_messages == 1) {
+            if (isset($indent_array[$msg['ID']])) {
+                $td_str .= str_repeat("&nbsp;&nbsp;&nbsp;&nbsp;",$indent_array[$msg['ID']]);
+            }
+        }
+        $td_str .= '<a href="read_body.php?mailbox='.$urlMailbox
+                .  '&amp;passed_id='. $msg["ID"]
+                .  '&amp;startMessage='.$start_msg.$searchstr.'"';
+        $td_str .= ' ' .concat_hook_function('subject_link', array($start_msg, $searchstr));
+        if ($subject != $msg['SUBJECT']) {
+            $title = get_html_translation_table(HTML_SPECIALCHARS);
+            $title = array_flip($title);
+            $title = strtr($msg['SUBJECT'], $title);
+            $title = str_replace('"', "''", $title);
+            $td_str .= " title=\"$title\"";
+        }
+        $td_str .= ">$flag$subject$flag_end</a>$bold_end";
+        echo html_tag( 'div', $td_str, null, $hlt_color, 'class="mailbox-subject"' );
+
         foreach ($index_order as $index_order_part) {
             switch ($index_order_part) {
             case 1: /* checkbox */
@@ -250,27 +270,6 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
                                null,
                                $hlt_color,
                                'nowrap class="mailbox-date"' );
-                break;
-            case 4: /* subject */
-                $td_str = $bold;
-                if ($thread_sort_messages == 1) {
-                    if (isset($indent_array[$msg['ID']])) {
-                        $td_str .= str_repeat("&nbsp;&nbsp;&nbsp;&nbsp;",$indent_array[$msg['ID']]);
-                    }
-                }
-                $td_str .= '<a href="read_body.php?mailbox='.$urlMailbox
-                        .  '&amp;passed_id='. $msg["ID"]
-                        .  '&amp;startMessage='.$start_msg.$searchstr.'"';
-                $td_str .= ' ' .concat_hook_function('subject_link', array($start_msg, $searchstr));
-                if ($subject != $msg['SUBJECT']) {
-                    $title = get_html_translation_table(HTML_SPECIALCHARS);
-                    $title = array_flip($title);
-                    $title = strtr($msg['SUBJECT'], $title);
-                    $title = str_replace('"', "''", $title);
-                    $td_str .= " title=\"$title\"";
-                }
-                $td_str .= ">$flag$subject$flag_end</a>$bold_end";
-                echo html_tag( 'div', $td_str, null, $hlt_color, 'class="mailbox-subject"' );
                 break;
             case 5: /* flags */
                 $stuff = false;
