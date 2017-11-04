@@ -231,8 +231,23 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
             $td_str .= " title=\"$title\"";
         }
         $td_str .= ">$flag$subject$flag_end</a>$bold_end";
+
+        echo '<div class="mailbox-details">';
+            $from_xtra = '';
+            $from_xtra = 'title="' . $senderFrom . '" class="mailbox-from"';
+            echo html_tag( 'div',
+                html_tag('label',
+                           $italic . $bold . $flag . $fontstr . sm_truncate_string($senderName, $truncate_sender, '...', TRUE) .
+                           $fontstr_end . $flag_end . $bold_end . $italic_end,
+                       '','','for="msg'.$msg['ID'].'"'),
+                       null,
+                       $hlt_color, $from_xtra );
+
+        echo '</div>';
+
         echo html_tag( 'div', $td_str, null, $hlt_color, 'class="mailbox-subject"' );
 
+        echo '<div class="mailbox-details">';
         foreach ($index_order as $index_order_part) {
             switch ($index_order_part) {
             case 1: /* checkbox */
@@ -244,15 +259,6 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
                                'class="mailbox-checkbox"' );
                 break;
             case 2: /* from */
-                $from_xtra = '';
-                $from_xtra = 'title="' . $senderFrom . '" class="mailbox-from"';
-                echo html_tag( 'div',
-                    html_tag('label',
-                               $italic . $bold . $flag . $fontstr . sm_truncate_string($senderName, $truncate_sender, '...', TRUE) .
-                               $fontstr_end . $flag_end . $bold_end . $italic_end,
-                           '','','for="msg'.$msg['ID'].'"'),
-                           null,
-                           $hlt_color, $from_xtra );
                 break;
             case 3: /* date */
                 // show internal date if using it to sort
@@ -269,11 +275,11 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
                                $fontstr_end . $flag_end . $bold_end,
                                null,
                                $hlt_color,
-                               'nowrap class="mailbox-date"' );
+                               'class="mailbox-date"' );
                 break;
             case 5: /* flags */
                 $stuff = false;
-                $td_str = "<b><small>";
+                $td_str = '<span class="message-flag">';
 
                 if (isset($msg['FLAG_ANSWERED']) && $msg['FLAG_ANSWERED'] == true) {
                     // i18n: "A" is short for "Answered". Make sure that two icon strings aren't translated to the same character (only in 1.5).
@@ -302,12 +308,12 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
                     $td_str .= '&nbsp;';
                 }
                 do_hook("msg_envelope");
-                $td_str .= '</small></b>';
+                $td_str .= '</span>';
                 echo html_tag( 'div',
                                $td_str,
                                null,
                                $hlt_color,
-                               'nowrap class="mailbox-flags"' );
+                               'class="mailbox-flags"' );
                 break;
             case 6: /* size */
                 echo html_tag( 'div',
@@ -320,6 +326,7 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
             }
             ++$col;
         }
+        echo '</div>' . "\n";
     }
     if ($not_last) {
         echo '</div>' . "\n\n";

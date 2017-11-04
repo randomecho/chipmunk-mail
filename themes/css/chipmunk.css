@@ -55,8 +55,18 @@ nav li {
   width: 100%;
 }
 
+.mailbox-details {
+  display: flex;
+  justify-content: space-between;
+}
+
+.mailbox-details div {
+  margin-bottom: 0.5em;
+  flex: flex-grow;
+}
+
 .mailbox-subject {
-  margin-bottom: 1em;
+  margin-bottom: 0.5em;
 }
 
 .mailsort-options {
@@ -81,7 +91,7 @@ nav li {
 
 .message-info {
   border-bottom: 1px dotted;
-  padding: 0.9em;
+  padding: 0.5em;
 }
 
 .signout {
