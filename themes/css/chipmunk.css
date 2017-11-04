@@ -39,3 +39,11 @@ input[type="text"], textarea, pre {
   padding: 0.5em;
   text-align: right;
 }
+
+.view-message-count {
+  font-size: 0.8em;
+  line-height: 1.5em;
+  margin: 0.5em 0;
+  padding: 0.5em;
+  text-align: center;
+}

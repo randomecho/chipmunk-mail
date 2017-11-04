@@ -738,7 +738,7 @@ function mail_message_listing_beginning ($imapConnection,
      */
 
     if (!empty($paginator) && !empty($msg_cnt_str)) {
-        echo html_tag( 'div', $msg_cnt_str, null, null, 'style="background:'.$color[0].';"');
+        echo html_tag( 'div', $msg_cnt_str, null, null, 'style="background:'.$color[0].';" class="view-message-count"');
         echo html_tag( 'div', $paginator );
     }
 
@@ -812,7 +812,7 @@ function mail_message_listing_end($num_msgs, $paginator_str, $msg_cnt_str, $colo
     /* space between list and footer */
     echo '<div style="height:10px; background: '.$color[4].'">&nbsp;</div>'."\n";
 
-    echo html_tag( 'div', $msg_cnt_str, null, null, 'style="background:'.$color[0].';"');
+    echo html_tag( 'div', $msg_cnt_str, null, null, 'style="background:'.$color[0].';" class="view-message-count"');
     echo html_tag( 'div', $paginator_str );
   }
     /* End of message-list table */
@@ -977,17 +977,20 @@ function get_selectall_link($start_msg, $sort) {
 /*
  * This function computes the "Viewing Messages..." string.
  */
-function get_msgcnt_str($start_msg, $end_msg, $num_msgs) {
+function get_msgcnt_str($start_msg, $end_msg, $num_msgs)
+{
     /* Compute the $msg_cnt_str. */
     $result = '';
+
     if ($start_msg < $end_msg) {
-        $result = sprintf(_("Viewing Messages: %s to %s (%s total)"),
+        $result = sprintf(_("Viewing Messages:<br> %s to %s (%s total)"),
                   '<b>'.$start_msg.'</b>', '<b>'.$end_msg.'</b>', $num_msgs);
     } else if ($start_msg == $end_msg) {
-        $result = sprintf(_("Viewing Message: %s (%s total)"), '<b>'.$start_msg.'</b>', $num_msgs);
+        $result = sprintf(_("Viewing Message:<br> %s (%s total)"), '<b>'.$start_msg.'</b>', $num_msgs);
     } else {
         $result = '<br>';
     }
+
     /* Return our result string. */
     return ($result);
 }
