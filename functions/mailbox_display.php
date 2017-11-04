@@ -183,7 +183,7 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
                                 $address = $decoded_addresses[$match_type][$i];
                                 if (strstr('^^' . strtolower($address[0]), $high_val) ||
                                     strstr('^^' . strtolower($address[1]), $high_val)) {
-                                    $hlt_color = $message_highlight_list_part['color'];
+                                    $hlt_color = '#'.$message_highlight_list_part['color'];
                                     break 4;
                                 }
                             }
@@ -191,7 +191,7 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
                         default:
                             $headertest = strtolower(decodeHeader($msg[$match_type], true, false));
                             if (strstr('^^' . $headertest, $high_val)) {
-                                $hlt_color = $message_highlight_list_part['color'];
+                                $hlt_color = '#'.$message_highlight_list_part['color'];
                                 break 3;
                             }
                             break;
@@ -232,20 +232,21 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
         }
         $td_str .= ">$flag$subject$flag_end</a>$bold_end";
 
+        echo '<div class="message-meta" style="background:' .$hlt_color. ';">';
         echo '<div class="mailbox-details">';
-            $from_xtra = '';
-            $from_xtra = 'title="' . $senderFrom . '" class="mailbox-from"';
-            echo html_tag( 'div',
-                html_tag('label',
-                           $italic . $bold . $flag . $fontstr . sm_truncate_string($senderName, $truncate_sender, '...', TRUE) .
-                           $fontstr_end . $flag_end . $bold_end . $italic_end,
-                       '','','for="msg'.$msg['ID'].'"'),
-                       null,
-                       $hlt_color, $from_xtra );
+        $from_xtra = '';
+        $from_xtra = 'title="' . $senderFrom . '" class="mailbox-from"';
+        echo html_tag( 'div',
+            html_tag('label',
+                       $italic . $bold . $flag . $fontstr . sm_truncate_string($senderName, $truncate_sender, '...', TRUE) .
+                       $fontstr_end . $flag_end . $bold_end . $italic_end,
+                   '','','for="msg'.$msg['ID'].'"'),
+                   null,
+                   '', $from_xtra );
 
         echo '</div>';
 
-        echo html_tag( 'div', $td_str, null, $hlt_color, 'class="mailbox-subject"' );
+        echo html_tag( 'div', $td_str, null, '', 'class="mailbox-subject"' );
 
         echo '<div class="mailbox-details">';
         foreach ($index_order as $index_order_part) {
@@ -255,7 +256,7 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
                                "<input type=\"checkbox\" name=\"msg[$t]\" id=\"msg".$msg['ID'].
                                    "\" value=\"".$msg['ID']."\"$checked>",
                                null,
-                               $hlt_color,
+                               '',
                                'class="mailbox-checkbox"' );
                 break;
             case 2: /* from */
@@ -274,7 +275,7 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
                                $bold . $flag . $fontstr . $date_string .
                                $fontstr_end . $flag_end . $bold_end,
                                null,
-                               $hlt_color,
+                               '',
                                'class="mailbox-date"' );
                 break;
             case 5: /* flags */
@@ -312,7 +313,7 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
                 echo html_tag( 'div',
                                $td_str,
                                null,
-                               $hlt_color,
+                               '',
                                'class="mailbox-flags"' );
                 break;
             case 6: /* size */
@@ -320,13 +321,13 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
                                $bold . $fontstr . show_readable_size($msg['SIZE']) .
                                $fontstr_end . $bold_end,
                                null,
-                               $hlt_color,
-                               'class="mailbox-size"'  );
+                               '',
+                               'class="mailbox-size"');
                 break;
             }
             ++$col;
         }
-        echo '</div>' . "\n";
+        echo '</div></div>' . "\n";
     }
     if ($not_last) {
         echo '</div>' . "\n\n";
