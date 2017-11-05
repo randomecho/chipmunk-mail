@@ -987,10 +987,10 @@ function get_msgcnt_str($start_msg, $end_msg, $num_msgs)
     $result = '';
 
     if ($start_msg < $end_msg) {
-        $result = sprintf(_("Viewing Messages:<br> %s to %s (%s total)"),
+        $result = sprintf(_("Viewing Messages: %s to %s (%s total)"),
                   '<b>'.$start_msg.'</b>', '<b>'.$end_msg.'</b>', $num_msgs);
     } else if ($start_msg == $end_msg) {
-        $result = sprintf(_("Viewing Message:<br> %s (%s total)"), '<b>'.$start_msg.'</b>', $num_msgs);
+        $result = sprintf(_("Viewing Message: %s (%s total)"), '<b>'.$start_msg.'</b>', $num_msgs);
     } else {
         $result = '<br>';
     }
