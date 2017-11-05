@@ -101,6 +101,11 @@ pre {
   border-bottom: 1px dotted;
 }
 
+.prev-next {
+  margin: 1em 0.6em;
+  text-align: right;
+}
+
 .provider {
   text-align: center;
 }

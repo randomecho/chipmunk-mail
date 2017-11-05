@@ -576,7 +576,7 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
         $s .= makeComposeLink($comp_alt_uri, $comp_alt_string);
     }
 
-    $s .= '</small></div><div><small>';
+    $s .= '</small></div>' . "\n" . '<div class="prev-next">';
 
     if (!(isset($where) && isset($what)) && !$passed_ent_id) {
         $prev = findPreviousMessage($mbx_response['EXISTS'], $passed_id);
@@ -640,7 +640,7 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
         $s .= $topbar_delimiter . $next_link;
     }
 
-    $s .= '</small></div>' . "\n" . '<small>';
+    $s .= '</div>' . "\n" . '<small>';
     $comp_action_uri = $comp_uri . '&amp;smaction=forward';
     $s .= makeComposeLink($comp_action_uri, _("Forward"));
 
