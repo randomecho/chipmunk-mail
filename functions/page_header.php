@@ -307,7 +307,7 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
 
     if (!$hide_sm_attributions)
     {
-        echo "<div>\n";
+        echo '<div class="provider">'."\n";
         if (!isset($provider_uri)) $provider_uri= 'http://squirrelmail.org/';
         if (!isset($provider_name)) $provider_name= 'SquirrelMail';
         echo '<a href="'.$provider_uri.'" target="_blank">'.$provider_name.'</a>';
