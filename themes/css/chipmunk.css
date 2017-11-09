@@ -65,6 +65,11 @@ pre {
   margin-left: 1em;
 }
 
+.compose-receipt {
+  display: flex;
+  justify-content: space-around;
+}
+
 .email-fields input[type="text"] {
   box-sizing: border-box;
   display: block;

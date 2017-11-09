@@ -1349,8 +1349,12 @@ function showComposeButtonRow()
     if ($default_use_mdn) {
         if ($mdn_user_support) {
             echo '<div class="compose-receipt">' . _("Receipt") .': '.
+                '<div class="compose-receipt-option">' .
                 addCheckBox('request_mdn', $request_mdn == '1', '1', ' id="request_mdn"') . '<label for="request_mdn">' . _("On Read") . '</label>' .
+                '</div>' .
+                '<div class="compose-receipt-option">' .
                 addCheckBox('request_dr',  $request_dr  == '1', '1', ' id="request_dr"') . '<label for="request_dr">' . _("On Delivery") . '</label>' .
+                '</div>' .
                 '</div>';
         }
     }
