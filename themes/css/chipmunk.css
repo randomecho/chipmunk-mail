@@ -51,6 +51,20 @@ pre {
   padding: 0;
 }
 
+.compose-buttons {
+  margin-bottom: 1em;
+  text-align: center;
+}
+
+.compose-priority {
+  margin-bottom: 1em;
+}
+
+.compose-priority select {
+  font-size: 1em;
+  margin-left: 1em;
+}
+
 .email-fields input[type="text"] {
   box-sizing: border-box;
   display: block;

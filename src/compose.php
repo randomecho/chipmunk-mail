@@ -1338,18 +1338,20 @@ function showComposeButtonRow()
         if(!isset($mailprio)) {
             $mailprio = '3';
         }
-        echo '          ' . _("Priority") .
+        echo '<div class="compose-priority">' . _("Priority") .
             addSelect('mailprio', array(
                         '1' => _("High"),
                         '3' => _("Normal"),
-                        '5' => _("Low") ), $mailprio, TRUE);
+                        '5' => _("Low") ), $mailprio, TRUE) .
+            '</div>';
     }
     $mdn_user_support=getPref($data_dir, $username, 'mdn_user_support',$default_use_mdn);
     if ($default_use_mdn) {
         if ($mdn_user_support) {
-            echo '          ' . _("Receipt") .': '.
+            echo '<div class="compose-receipt">' . _("Receipt") .': '.
                 addCheckBox('request_mdn', $request_mdn == '1', '1', ' id="request_mdn"') . '<label for="request_mdn">' . _("On Read") . '</label>' .
-                addCheckBox('request_dr',  $request_dr  == '1', '1', ' id="request_dr"') . '<label for="request_dr">' . _("On Delivery") . '</label>';
+                addCheckBox('request_dr',  $request_dr  == '1', '1', ' id="request_dr"') . '<label for="request_dr">' . _("On Delivery") . '</label>' .
+                '</div>';
         }
     }
 
