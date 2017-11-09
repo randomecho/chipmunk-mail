@@ -1360,6 +1360,7 @@ function showComposeButtonRow()
     }
 
     echo '      </div>' . "\n" .
+        '<div class="compose-buttons">' .
         '         <input type="submit" name="sigappend" value="' . _("Signature") . '" />' . "\n";
     if ($use_javascript_addr_book) {
         echo "         <script language=\"JavaScript\"><!--\n document.write(\"".
@@ -1379,7 +1380,9 @@ function showComposeButtonRow()
     }
 
     echo '         <input type="submit" name="send" value="'. _("Send") . '" />' . "\n";
+
     do_hook('compose_button_row');
+    echo '</div>';
 }
 
 function checkInput ($show) {

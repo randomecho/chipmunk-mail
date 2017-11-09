@@ -56,6 +56,12 @@ pre {
   text-align: center;
 }
 
+.compose-buttons input[type="button"],
+.compose-buttons input[type="submit"] {
+  font-size: 1em;
+  margin-bottom: 1em;
+}
+
 .compose-priority {
   margin-bottom: 1em;
 }
