@@ -860,45 +860,22 @@ for ($i = 0; $i < $cnt; $i++) {
 displayPageHeader($color, $mailbox);
 formatMenuBar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_response);
 formatEnvheader($mailbox, $passed_id, $passed_ent_id, $message, $color, $FirstTimeSee);
-echo '<table width="100%" cellpadding="0" cellspacing="0" align="center" border="0">';
-echo '  <tr><td>';
-echo '    <table width="100%" cellpadding="1" cellspacing="0" align="center" border="0" bgcolor="'.$color[9].'">';
-echo '      <tr><td>';
-echo '        <table width="100%" cellpadding="3" cellspacing="0" align="center" border="0">';
-echo '          <tr bgcolor="'.$color[4].'"><td>';
-// echo '            <table cellpadding="1" cellspacing="5" align="left" border="0">';
-echo html_tag( 'table' ,'' , 'left', '', 'cellpadding="1" cellspacing="5" border="0"' );
-echo '              <tr>' . html_tag( 'td', '<br />'. $messagebody."\n", 'left')
-                        . '</tr>';
-echo '            </table>';
-echo '          </td></tr>';
-echo '        </table></td></tr>';
-echo '    </table>';
-echo '  </td></tr>';
-
-echo '<tr><td height="5" colspan="2" bgcolor="'.
-          $color[4].'"></td></tr>'."\n";
+echo '<div class="message-main" style="background:' .$color[9]. '">';
+echo ' <div class="message-body" style="background:' .$color[4]. '">';
+echo $messagebody . "\n";
+echo ' </div>';
 
 $attachmentsdisplay = formatAttachments($message,$ent_ar,$mailbox, $passed_id);
 if ($attachmentsdisplay) {
-   echo '  <tr><td>';
-   echo '    <table width="100%" cellpadding="1" cellspacing="0" align="center"'.' border="0" bgcolor="'.$color[9].'">';
-   echo '     <tr><td>';
-   echo '       <table width="100%" cellpadding="0" cellspacing="0" align="center" border="0" bgcolor="'.$color[4].'">';
-   echo '        <tr>' . html_tag( 'td', '', 'left', $color[9] );
-   echo '           <b>' . _("Attachments") . ':</b>';
-   echo '        </td></tr>';
-   echo '        <tr><td>';
-   echo '          <table width="100%" cellpadding="2" cellspacing="2" align="center"'.' border="0" bgcolor="'.$color[0].'"><tr><td>';
-   echo              $attachmentsdisplay;
-   echo '          </td></tr></table>';
-   echo '       </td></tr></table>';
-   echo '    </td></tr></table>';
-   echo '  </td></tr>';
-   echo '<tr><td height="5" colspan="2" bgcolor="'.
-          $color[4].'"></td></tr>';
+   echo ' <div class="message-sub" style="background:' .$color[9]. '">';
+   echo '  <h3>' . _("Attachments") . '</h3>';
+   echo '  <div class="message-attachments" style="background:' .$color[0]. '">';
+   echo $attachmentsdisplay;
+   echo '  </div>';
+   echo ' </div>';
 }
-echo '</table>';
+
+echo '</div>';
 
 /* show attached images inline -- if pref'fed so */
 if (($attachment_common_show_images) &&

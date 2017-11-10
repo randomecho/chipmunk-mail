@@ -118,6 +118,10 @@ pre {
   margin: 0.6em 0 0 0;
 }
 
+.message-body {
+  padding: 1em 0.5em;
+}
+
 .message-header {
   padding: 0.5em;
 }
