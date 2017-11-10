@@ -507,12 +507,10 @@ function formatEnvheader($mailbox, $passed_id, $passed_ent_id, $message,
         }
     }
     echo '<div style="background:'.$color[9].'">'."\n";
-    echo '<div style="background:'.$color[4].';height:10px;">&nbsp;</div>'."\n";
     echo $s;
     do_hook('read_body_header');
     formatToolbar($mailbox, $passed_id, $passed_ent_id, $message, $color);
     echo '</div>';
-    echo '<div style="background:'.$color[4].';height:10px;">&nbsp;</div>'."\n";
     echo '</div>';
 }
 
@@ -523,7 +521,7 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
 
     $topbar_delimiter = '&nbsp;|&nbsp;';
     $urlMailbox = urlencode($mailbox);
-    $s = '<div style="background:'.$color[9].'"><div>' . '<small>';
+    $s = '<div class="message-menu" style="background:'.$color[9].'">' . "\n" . '<div class="message-links">';
 
     $msgs_url = $base_uri . 'src/';
     if (isset($where) && isset($what)) {
@@ -576,7 +574,7 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
         $s .= makeComposeLink($comp_alt_uri, $comp_alt_string);
     }
 
-    $s .= '</small></div>' . "\n" . '<div class="prev-next">';
+    $s .= '</div>' . "\n" . '<div class="prev-next">';
 
     if (!(isset($where) && isset($what)) && !$passed_ent_id) {
         $prev = findPreviousMessage($mbx_response['EXISTS'], $passed_id);
@@ -640,7 +638,7 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
         $s .= $topbar_delimiter . $next_link;
     }
 
-    $s .= '</div>' . "\n" . '<small>';
+    $s .= '</div>' . "\n" . '<div class="message-links">';
     $comp_action_uri = $comp_uri . '&amp;smaction=forward';
     $s .= makeComposeLink($comp_action_uri, _("Forward"));
 
@@ -657,7 +655,8 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
     $comp_action_uri = $comp_uri . '&amp;smaction=reply_all';
     $s .= $topbar_delimiter;
     $s .= makeComposeLink($comp_action_uri, _("Reply All"));
-    $s .= '</small></div>';
+    $s .= '</div>' . "\n";
+    $s .= '</div>' . "\n";
     $ret = concat_hook_function('read_body_menu_top', $s);
     if($ret != '') {
         $s = $ret;

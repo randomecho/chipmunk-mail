@@ -118,6 +118,19 @@ pre {
   margin: 0.6em 0 0 0;
 }
 
+.message-links {
+  display: flex;
+  justify-content: space-around;
+}
+
+.message-links a {
+  text-align: center;
+}
+
+.message-menu {
+  padding: 1em 0.5em;
+}
+
 .message-meta {
   padding: 0.5em;
 }
