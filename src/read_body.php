@@ -665,7 +665,8 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
     do_hook('read_body_menu_bottom');
 }
 
-function formatToolbar($mailbox, $passed_id, $passed_ent_id, $message, $color) {
+function formatToolbar($mailbox, $passed_id, $passed_ent_id, $message, $color)
+{
     global $base_uri, $where, $what, $download_and_unsafe_link;
 
     $urlMailbox = urlencode($mailbox);
@@ -684,8 +685,8 @@ function formatToolbar($mailbox, $passed_id, $passed_ent_id, $message, $color) {
 
     $url = $base_uri.'src/view_header.php?'.$query_string;
 
-    $s  = "<div>\n" . '<b>' . _("Options") . ":&nbsp;&nbsp;</b>\n" .
-          '<small>' .
+    $s  = "\n" . '<div class="message-toolbar">' . "\n" . '<h3>' . _("Options") . "</h3>\n" .
+          '<div class="message-options">' .
           '<a href="'.$url.'">'._("View Full Header").'</a>';
 
     /* Output the printer friendly link if we are in subtle mode. */
@@ -699,9 +700,8 @@ function formatToolbar($mailbox, $passed_id, $passed_ent_id, $message, $color) {
     }
 
     do_hook("read_body_header_right");
-    $s = "</small>\n";
+    $s = "\n</div>\n</div>\n";
     echo $s;
-
 }
 
 /***************************/
