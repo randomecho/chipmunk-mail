@@ -506,7 +506,7 @@ function formatEnvheader($mailbox, $passed_id, $passed_ent_id, $message,
             $s .= '</div>';
         }
     }
-    echo '<div style="background:'.$color[9].'">'."\n";
+    echo '<div class="message-header" style="background:'.$color[0].'">'."\n";
     echo $s;
     do_hook('read_body_header');
     formatToolbar($mailbox, $passed_id, $passed_ent_id, $message, $color);
