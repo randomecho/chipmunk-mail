@@ -750,20 +750,19 @@ function mail_message_listing_beginning ($imapConnection,
     }
 
     /* line between header and button area */
-        echo '<div style="height:10px; background: '.$color[4].';">&nbsp;</div>';
+    echo '<div style="height:10px; background: '.$color[4].';">&nbsp;</div>';
 
-        echo html_tag( 'div' ) . "\n"
-            . html_tag( 'div',
-             getSmallStringCell(_("Move Selected To")) .
-             getSmallStringCell(_("Transform Selected Messages"))
-            )
-            . html_tag( 'div' ) ."\n";
-            getMbxList($imapConnection);
-            echo getButton('SUBMIT', 'moveButton',_("Move")) . "\n";
-            echo getButton('SUBMIT', 'attache',_("Forward")) . "\n";
-            do_hook('mailbox_display_buttons');
+    echo '<div class="select-transform">';
+    echo '<div class="select-head">' . _("Move Selected To") . '</div>';
 
-    echo "      </small>\n";
+    getMbxList($imapConnection);
+    echo getButton('SUBMIT', 'moveButton',_("Move")) . "\n";
+    echo getButton('SUBMIT', 'attache',_("Forward")) . "\n";
+    do_hook('mailbox_display_buttons');
+    echo '</div>';
+
+    echo '<div class="select-transform">';
+    echo '<div class="select-head">' . _("Transform Selected Messages") . '</div>';
 
     if (!$auto_expunge) {
         echo getButton('SUBMIT', 'expungeButton',_("Expunge")) ."\n";
@@ -772,15 +771,15 @@ function mail_message_listing_beginning ($imapConnection,
     echo getButton('SUBMIT', 'markRead',_("Read")) . "\n";
     echo getButton('SUBMIT', 'markUnread',_("Unread")) . "\n";
     echo getButton('SUBMIT', 'delete',_("Delete")) ."&nbsp;\n";
+
     if (!strpos($php_self,'mailbox')) {
         $location = $php_self.'?mailbox=INBOX&amp;startMessage=1';
     } else {
         $location = $php_self;
     }
 
-//    $location = urlencode($location);
-
     echo '<input type="hidden" name="location" value="'.$location.'">';
+    echo '</div>';
     echo "\n";
 
     /* draws thread sorting links */
@@ -1285,7 +1284,7 @@ function processSubject($subject, $threadlevel = 0) {
 
 function getMbxList($imapConnection) {
     global $lastTargetMailbox;
-    echo  '         <small>&nbsp;<tt><select name="targetMailbox">';
+    echo  '         &nbsp;<tt><select name="targetMailbox">';
     echo sqimap_mailbox_option_list($imapConnection, array(strtolower($lastTargetMailbox)) );
     echo '         </select></tt>&nbsp;';
 }

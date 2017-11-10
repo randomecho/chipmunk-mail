@@ -144,6 +144,15 @@ pre {
   margin: 1em;
 }
 
+.select-transform {
+  margin-bottom: 1em;
+  text-align: center;
+}
+
+.select-transform input, .select-transform select {
+  font-size: 1em;
+}
+
 .signout {
   padding: 0.5em;
   text-align: right;
