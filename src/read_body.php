@@ -501,9 +501,10 @@ function formatEnvheader($mailbox, $passed_id, $passed_ent_id, $message,
     $s  = '<div style="background:'.$color[0].'">'."\n";
     foreach ($env as $key => $val) {
         if ($val) {
-            $s .= '<div>';
-            $s .= html_tag('div', '<b>' . $key . ':&nbsp;&nbsp;</b>'. $val) . "\n";
-            $s .= '</div>';
+            $s .= '<div class="message-head-line">';
+            $s .= '<h3>' . $key . '</h3>';
+            $s .= '<div class="message-head-value">' . $val . '</div>';
+            $s .= '</div>' . "\n";
         }
     }
     echo '<div class="message-header" style="background:'.$color[0].'">'."\n";
