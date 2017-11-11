@@ -442,7 +442,7 @@ function formatAttachments($message, $exclude_id, $mailbox, $id) {
 
     if (!count($att_ar)) return '';
 
-    $attachments = '';
+    $attachments = '<ul>';
 
     $urlMailbox = urlencode($mailbox);
 
@@ -548,14 +548,12 @@ function formatAttachments($message, $exclude_id, $mailbox, $id) {
         $links = $hookresults[1];
         $defaultlink = $hookresults[6];
 
-        $attachments .= '<tr><td>' .
-            '<a href="'.$defaultlink.'">'.decodeHeader($display_filename).'</a>&nbsp;</td>' .
-            '<td><small><b>' . show_readable_size($header->size) .
-            '</b>&nbsp;&nbsp;</small></td>' .
-            '<td><small>[ '.htmlspecialchars($type0).'/'.htmlspecialchars($type1).' ]&nbsp;</small></td>' .
-            '<td><small>';
-        $attachments .= '<b>' . $description . '</b>';
-        $attachments .= '</small></td><td><small>&nbsp;';
+        $attachments .= '<li>' .
+            '<div class="attachment-name"><a href="'.$defaultlink.'">'.decodeHeader($display_filename).'</a></div>' .
+            '<div class="attachment-meta">' .
+            '<div class="attachment-size">' . show_readable_size($header->size) . '</div>' .
+            '<div class="attachment-type">[ '.htmlspecialchars($type0).'/'.htmlspecialchars($type1).' ]</div>' .
+            '<div class="attachment-desc">' . $description . '</div>';
 
         $skipspaces = 1;
         foreach ($links as $val) {
@@ -567,8 +565,12 @@ function formatAttachments($message, $exclude_id, $mailbox, $id) {
             $attachments .= '<a href="' . $val['href'] . '">' .  $val['text'] . '</a>';
         }
         unset($links);
-        $attachments .= "</td></tr>\n";
+        $attachments .= '</div>';
+        $attachments .= "</li>\n";
     }
+
+    $attachments .= "</ul>\n";
+
     return $attachments;
 }
 
