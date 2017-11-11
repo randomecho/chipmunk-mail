@@ -858,7 +858,6 @@ for ($i = 0; $i < $cnt; $i++) {
 }
 
 displayPageHeader($color, $mailbox);
-formatMenuBar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_response);
 formatEnvheader($mailbox, $passed_id, $passed_ent_id, $message, $color, $FirstTimeSee);
 echo '<div class="message-main" style="background:' .$color[9]. '">';
 echo ' <div class="message-body" style="background:' .$color[4]. '">';
@@ -874,6 +873,8 @@ if ($attachmentsdisplay) {
    echo '  </div>';
    echo ' </div>';
 }
+
+formatMenuBar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_response);
 
 echo '</div>';
 
