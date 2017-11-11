@@ -84,6 +84,13 @@ pre {
   justify-content: space-around;
 }
 
+.delete-move-next {
+  display: flex;
+  justify-content: space-around;
+  padding: 1em 0;
+  text-align: center;
+}
+
 .email-fields input[type="text"] {
   box-sizing: border-box;
   display: block;
@@ -176,6 +183,15 @@ pre {
 
 .message-meta {
   padding: 0.5em;
+}
+
+.message-mover {
+  padding: 1em 0;
+  text-align: center;
+}
+
+.message-mover input {
+  font-size: 1em;
 }
 
 .message-options {
